@@ -2313,172 +2313,226 @@ async def compressed_search(query: str, ctx: Context) -> str:
   </div>
 </section>
 <!--  -->
+
+<!-- Slide 42 -->
 <section>
-  <h2>Часть 5. Готовые решения: gateway на MCP Mesh</h2>
-  <div class="hero-box">
-    <div class="eyebrow">Часть 5 · 5–6 минут</div>
-    <div class="big-question">
-      Как из протокола и «зоопарка» серверов перейти к одному управляемому MCP‑gateway?
+  <div class="hero">
+    <div class="hero-box">
+      <div class="eyebrow">Часть 5</div>
+      <h1><span class="accent-cyan">FastMCP Cloud Gateway</span> как production-слой</h1>
+
+      <div class="big-question">
+        Идею gateway мы уже разобрали.<br/>
+        Теперь — как это выглядит в <span class="accent-blue">реальной реализации</span>.
+      </div>
+
+      <p class="lead">
+        Здесь я больше не повторяю routing, grouping и compact context.
+        Я показываю финальную форму: один cloud gateway,
+        за ним каталог серверов и набор реальных MCP-интеграций.
+      </p>
     </div>
-    <p class="lead">
-      В прошлых частях мы разобрались с эволюцией LLM‑агентов, самим протоколом MCP и кастомными gateway (vmcp‑gateway, FastMCP). Сейчас посмотрим, как это всё собрать в production‑решение на базе MCP Mesh как готового control plane. [modelcontextprotocol](https://modelcontextprotocol.io/specification/2025-11-25)
-    </p>
-    <div class="bottom-line">
-      Цель трека: показать, что MCP Mesh — это «готовый USB‑хаб» поверх MCP‑спеки, который превращает набор серверов в один управляемый gateway. [gravitee](https://www.gravitee.io/blog/mcp-model-context-protocol-agentic-ai)
+
+    <div class="hero-right">
+      <div class="metric">
+        <div class="icon"><i class="bi bi-cloud"></i></div>
+        <div class="value">1 Cloud endpoint</div>
+        <div class="label">Снаружи один вход для клиентов и приложений.</div>
+      </div>
+
+      <div class="metric">
+        <div class="icon"><i class="bi bi-journal-richtext"></i></div>
+        <div class="value">Registry behind it</div>
+        <div class="label">Внутри — каталог MCP-серверов и capability discovery.</div>
+      </div>
+
+      <div class="metric">
+        <div class="icon"><i class="bi bi-tools"></i></div>
+        <div class="value">Real MCP backends</div>
+        <div class="label">Jira, GitHub, Slack, Notion и внутренние сервисы как execution layer.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="bottom-line">
+    Финальная мысль конца: не “ещё одна библиотека”, а понятная cloud-архитектура вокруг MCP.
   </div>
 </section>
 
+<!-- Slide 43 -->
 <section>
-  <h2>Проблема: N×M MCP‑интеграций в проде</h2>
-  <div class="panel">
-    <h3>От PoC к реальной платформе</h3>
-    <ul>
-      <li>Когда MCP‑серверов становится много (SaaS, внутренние API, FastMCP‑прокси), каждая команда начинает строить свои связи «клиент ↔ сервер». </li> [gravitee](https://www.gravitee.io/blog/mcp-api-gateway-explained-protocols-caching-and-remote-server-integration)
-      <li>Возникает классический N×M: IDE, агенты, чат‑боты, batch‑процессы — все тянут одни и те же MCP‑серверы по‑своему. </li> [arcade](https://www.arcade.dev/blog/mcp-gateway-pattern)
-      <li>Нужно централизовать аутентификацию, политику, аудит, маршрутизацию и наблюдаемость MCP‑трафика так же, как мы это делаем для HTTP‑API‑gateway. </li> [mcpmarket](https://mcpmarket.com/server/mesh-1)
-    </ul>
-    <div class="callout">
-      MCP‑спека решает, <span class="accent-cyan">как</span> говорить с одним сервером (JSON‑RPC, сессии, capabilities), но не описывает, <span class="accent-yellow">как управлять флотом серверов</span> на уровне организации. [xinyi-hou.github](https://xinyi-hou.github.io/files/hou2025mcp_1.pdf)
-    </div>
-  </div>
-</section>
+  <h2>Архитектура: <span class="accent-cyan">Cloud Gateway → Registry → MCP servers</span></h2>
 
-<section>
-  <h2>Что такое MCP Mesh и почему это готовый gateway</h2>
   <div class="mcp-grid">
     <div class="proto-box">
-      <h4>MCP Mesh в одном слайде</h4>
+      <h4>Что видно снаружи</h4>
       <p>
-        MCP Mesh — self‑hosted control plane и gateway для MCP, который ставится между вашими приложениями (Cursor, Claude, внутренние агенты) и множеством MCP‑серверов. [decocms](https://www.decocms.com/blog/post/mcp-mesh)
+        Клиенты, IDE и внутренние приложения подключаются к одному gateway endpoint.
+        Им не нужно знать про десятки отдельных MCP-серверов и их конфигурацию.
       </p>
-      <p>
-        Клиент интегрируется с одним MCP‑endpoint Mesh, а Mesh уже маршрутизирует вызовы к любым серверам за счёт стандартных MCP‑примитивов: tools, resources, prompts и capabilities. [decocms](https://www.decocms.com/mcp-mesh)
-      </p>
-      <ul class="small">
-        <li>Централизованный routing и агрегация ответов. </li> [arcade](https://www.arcade.dev/blog/mcp-gateway-pattern)
-        <li>RBAC, политики, approvals, аудит MCP‑вызовов. </li> [mcpmarket](https://mcpmarket.com/server/mesh-1)
-        <li>Наблюдаемость: latency, ошибки, трассировки по всем MCP‑ и model‑коллам. </li> [decocms](https://www.decocms.com/mcp-mesh)
-      </ul>
-    </div>
-    <div class="quote-box">
-      <h4>Как это соотносится с предыдущими главами</h4>
-      <p>
-        Если vmcp‑gateway и FastMCP показывали, как собрать свой gateway из MCP‑«деталей», то MCP Mesh — пример готового «коробочного» решения, которое уже реализует типичные паттерны gateway поверх официальной спеке. [gravitee](https://www.gravitee.io/blog/mcp-api-gateway-explained-protocols-caching-and-remote-server-integration)
-      </p>
-      <p class="small muted">
-        Важно: MCP Mesh не придумывает новый протокол — он выступает MCP‑клиентом/хостом по отношению к серверам и MCP‑сервером по отношению к вашим приложениям, строго следуя JSON‑RPC, sessions и features из спецификации 2025‑11‑25. [modelcontextprotocol](https://modelcontextprotocol.io/specification/2025-11-25)
-      </p>
-    </div>
-  </div>
-</section>
 
-<section>
-  <h2>Как Mesh опирается на MCP‑спеку 2025‑11‑25</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title">
-        <i class="bi bi-diagram-3"></i>
-        <span>Примитивы MCP → кирпичи Mesh</span>
-      </div>
-      <ul class="small">
-        <li><strong>Servers & Features.</strong> Mesh просто подключает MCP‑серверы, которые объявляют tools, resources, prompts через стандартные методы `tools/list`, `resources/list`, `prompts/list`. </li> [modelcontextprotocol](https://modelcontextprotocol.io/docs/learn/server-concepts)
-        <li><strong>Capabilities.</strong> Mesh считывает server capabilities (logging, tasks, completions) и использует их при маршрутизации и политике. </li> [xinyi-hou.github](https://xinyi-hou.github.io/files/hou2025mcp_1.pdf)
-        <li><strong>Client features.</strong> Через sampling, roots, elicitation Mesh может инициировать сложные сценарии (chain‑of‑tools, запрос доп.ввода, работа в границах workspace). </li> [modelcontextprotocol](https://modelcontextprotocol.io/specification/2025-11-25)
-        <li><strong>Transports.</strong> Mesh говорит с серверами по stdio или Streamable HTTP, как предписывает спецификация, абстрагируя это от конечных агентов. </li> [gravitee](https://www.gravitee.io/blog/mcp-api-gateway-explained-protocols-caching-and-remote-server-integration)
-      </ul>
-    </div>
-    <div class="panel augment">
-      <div class="panel-title">
-        <i class="bi bi-box-arrow-in-right"></i>
-        <span>От протокола к gateway‑функциям</span>
-      </div>
-      <ul class="small">
-        <li>Mesh добавляет «надпротокольные» вещи: workspace‑и, multi‑tenant routing, централизованный auth поверх базовой схемы авторизации транспорта, описанной в MCP‑спецификации. </li> [mcpmarket](https://mcpmarket.com/server/mesh-1)
-        <li>Используя notifications и logging из MCP, Mesh строит единую линию аудита и мониторинга по всем серверам, а не только по одному соединению. </li> [xinyi-hou.github](https://xinyi-hou.github.io/files/hou2025mcp_1.pdf)
-        <li>Gateway‑политики (какие tools видит какой агент) реализуются через фильтрацию и переобъявление tool‑surface, но на проводе всё равно едет чистый MCP. </li> [reddit](https://www.reddit.com/r/AI_Agents/comments/1q4pyzp/introducing_deco_mcp_mesh_oss_runtime_gateways/)
-      </ul>
-    </div>
-  </div>
-</section>
+      <div class="primitive-list">
+        <div class="primitive">
+          <div class="picon"><i class="bi bi-box-arrow-in-right"></i></div>
+          <div>
+            <h5>Gateway</h5>
+            <p>Единая точка входа для MCP-клиентов и внутренних сервисов.</p>
+          </div>
+        </div>
 
-<section>
-  <h2>Архитектура: gateway с MCP Mesh</h2>
-  <div class="diagram-box tools">
-    <div class="diagram-title">
-      <i class="bi bi-node-plus"></i>
-      <span>Одна точка входа вместо десятков прямых подключений</span>
-    </div>
-    <div class="small">
-      <p>
-        На этом слайде — high‑level схема: агенты и IDE подключаются к одному MCP‑endpoint (Mesh Gateway), а сам Mesh под капотом держит пул MCP‑серверов: SaaS (Jira, GitHub), внутренние сервисы, FastMCP‑обёртки и LLM‑провайдеры, экспонированные как MCP. [reddit](https://www.reddit.com/r/LocalLLaMA/comments/1pu59mp/mcp_mesh_distributed_runtime_for_ai_agents_with/)
-      </p>
-    </div>
-    <div class="flow">
-      <div class="node">
-        <strong>Клиенты / агенты</strong>
-        Claude, Cursor, VS Code, внутренние workflow‑агенты — все настроены на один MCP‑endpoint Mesh. [decocms](https://www.decocms.com/blog/post/mcp-mesh)
-      </div>
-      <div class="arrow">↓</div>
-      <div class="node context-node">
-        <strong>MCP Mesh Gateway</strong>
-        Выполняет initialize, собирает capabilities всех подключённых серверов, строит единое tool‑поверхность и политику доступа. [decocms](https://www.decocms.com/mcp-mesh)
-      </div>
-      <div class="arrow">↓</div>
-      <div class="node">
-        <strong>Пул MCP‑серверов</strong>
-        MCP‑серверы поверх SaaS, внутренних API и FastMCP‑композиций; часть по HTTP/SSE, часть по stdio — Mesh адаптирует транспорт. [reddit](https://www.reddit.com/r/LocalLLaMA/comments/1pu59mp/mcp_mesh_distributed_runtime_for_ai_agents_with/)
-      </div>
-      <div class="arrow">↓</div>
-      <div class="node result-node">
-        <strong>Наблюдаемость и контроль</strong>
-        Единые логи, трассировки, аудит, лимиты и политики на уровне Mesh, а не в каждом клиенте. [reddit](https://www.reddit.com/r/AI_Agents/comments/1q4pyzp/introducing_deco_mcp_mesh_oss_runtime_gateways/)
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="primitive">
+          <div class="picon"><i class="bi bi-search"></i></div>
+          <div>
+            <h5>Registry</h5>
+            <p>Каталог доступных серверов, capability discovery и конфигурация surface.</p>
+          </div>
+        </div>
 
-<section>
-  <h2>Runtime‑стратегии Mesh: routing, merge, fallback</h2>
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>Единый контракт, разные стратегии</h4>
-      <ul>
-        <li><strong>Routing.</strong> Для `tools/call` Mesh решает, к какому MCP‑серверу пойти, по тегам, workspace, типу ресурса или политике окружения (prod/stage). </li> [decocms](https://www.decocms.com/blog/post/mcp-mesh)
-        <li><strong>Merge.</strong> Для `tools/list`, `resources/list`, `prompts/list` Mesh агрегирует ответы с нескольких серверов и отдаёт клиенту цельную картину tool‑surface. </li> [arcade](https://www.arcade.dev/blog/mcp-gateway-pattern)
-        <li><strong>Fallback.</strong> При сбое одного сервера Mesh может прозрачно переключить вызов на бэкап с той же capability‑группой, не меняя код агента. </li> [reddit](https://www.reddit.com/r/LocalLLaMA/comments/1pu59mp/mcp_mesh_distributed_runtime_for_ai_agents_with/)
-      </ul>
+        <div class="primitive">
+          <div class="picon"><i class="bi bi-diagram-2"></i></div>
+          <div>
+            <h5>MCP servers</h5>
+            <p>Интеграции с внешними системами и выполнение реальных tool-вызовов.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="mini-equation">
-        MCP‑спека (sessions + capabilities) + Mesh‑стратегии = готовый «умный» gateway, а не набор точечных интеграций.
+        clients → cloud gateway → registry → MCP servers
       </div>
     </div>
-    <div class="bottom-card">
-      <h4>Где здесь польза для команд</h4>
-      <ul>
-        <li>Платформенная команда держит один Mesh, а продуктовые команды просто выбирают, какие tool‑наборы им нужны. </li> [mcpmarket](https://mcpmarket.com/server/mesh-1)
-        <li>Смена провайдера (например, другого MCP‑сервера к тому же API) делается на уровне Mesh, а не во всех клиентах. </li> [reddit](https://www.reddit.com/r/AI_Agents/comments/1q4pyzp/introducing_deco_mcp_mesh_oss_runtime_gateways/)
-        <li>Стоимость, квоты и безопасность MCP‑вызовов управляются из одного места. </li> [decocms](https://www.decocms.com/mcp-mesh)
-      </ul>
+
+    <div class="diagram-box tools">
+      <div class="diagram-title"><i class="bi bi-diagram-3"></i> Reference shape</div>
+      <pre class="mermaid">
+flowchart LR
+    C1[Claude / Cursor]
+    C2[Internal App / Workflow]
+    GW[FastMCP Cloud Gateway]
+    REG[Registry]
+    M1[Jira MCP]
+    M2[GitHub MCP]
+    M3[Slack MCP]
+    M4[Internal MCP]
+
+    C1 --> GW
+    C2 --> GW
+    GW --> REG
+    GW --> M1
+    GW --> M2
+    GW --> M3
+    GW --> M4
+    REG -. catalog / discovery .-> GW
+      </pre>
     </div>
+  </div>
+
+  <div class="center-note">
+    Этот слайд заменяет длинный хвост про production-детали и сразу показывает итоговую систему целиком.
   </div>
 </section>
 
+<!-- Slide 44 -->
 <section>
-  <h2>Пошагово: как построить gateway с MCP Mesh</h2>
-  <div class="panel">
-    <h3>От спецификации к работающему решению</h3>
-    <ul class="small">
-      <li><strong>Шаг 1.</strong> Разворачиваем MCP Mesh (локально для демо или в Kubernetes/VM для продакшена) — это self‑hosted компонент, который вы контролируете. </li> [decocms](https://www.decocms.com/blog/post/mcp-mesh)
-      <li><strong>Шаг 2.</strong> Регистрируем MCP‑серверы: внешние SaaS‑серверы, внутренние MCP над legacy API, FastMCP‑прокси над несколькими backend‑сервисами. </li> [gravitee](https://www.gravitee.io/blog/mcp-api-gateway-explained-protocols-caching-and-remote-server-integration)
-      <li><strong>Шаг 3.</strong> Настраиваем workspace‑и, RBAC, политики и аудит так, чтобы разные команды и агенты видели только свои tools/resources/prompts. </li> [mcpmarket](https://mcpmarket.com/server/mesh-1)
-      <li><strong>Шаг 4.</strong> Подключаем агентов и IDE к одному MCP‑endpoint Mesh и включаем runtime‑стратегии (routing, merge, fallback) под свои сценарии. </li> [arcade](https://www.arcade.dev/blog/mcp-gateway-pattern)
-    </ul>
-    <div class="center-note">
-      В логике доклада этот трек завершает путь: от «LLM с инструментами» и протокола MCP — к реальному gateway‑решению, которое можно взять и развернуть в организации уже завтра.
+  <h2>Поверх gateway — <span class="accent-blue">FastAPI BFF</span></h2>
+
+  <div class="two-col">
+    <div class="panel align" style="min-height:auto;">
+      <div class="panel-title"><i class="bi bi-code-square"></i> Зачем ещё один слой</div>
+      <div class="chip">Из tools в product API</div>
+
+      <div class="step">
+        <div class="step-title">Клиенту не нужен tool catalog</div>
+        <div class="step-desc">
+          Продукт и UI работают с бизнес-операциями, а не с сырыми MCP tools.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">BFF даёт нормальный контракт</div>
+        <div class="step-desc">
+          REST/HTTP endpoint, валидация, auth, rate limits, audit и versioning.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-title">Gateway остаётся внутри</div>
+        <div class="step-desc">
+          FastAPI оркестрирует сценарий, а cloud gateway уже вызывает нужные MCP capabilities.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="min-height:auto;">
+<pre><code class="language-python">from fastapi import FastAPI, Depends
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class CreateIssueRequest(BaseModel):
+    project: str
+    title: str
+    description: str | None = None
+
+class GatewayClient:
+    async def call_tool(self, tool: str, **kwargs):
+        ...
+
+async def get_gateway() -> GatewayClient:
+    return GatewayClient()
+
+@app.post("/api/issues")
+async def create_issue(
+    body: CreateIssueRequest,
+    gw: GatewayClient = Depends(get_gateway),
+):
+    return await gw.call_tool(
+        "jira.create_issue",
+        project=body.project,
+        summary=body.title,
+        description=body.description,
+    )</code></pre>
     </div>
   </div>
+
+  <div class="bottom-line">
+    Снаружи у нас продуктовый API. Внутри — FastAPI, cloud gateway, registry и MCP-серверы.
+  </div>
 </section>
-<!--  -->
+
+<!-- Slide 45 -->
+<section>
+  <h2>Ключевой <span class="accent-yellow">финал</span></h2>
+
+  <div class="equation-box">
+    <div class="equation-side">
+      <h4>Что было бы плохо</h4>
+      <ul>
+        <li>Тащить клиента напрямую в десятки tools.</li>
+        <li>Раздавать много MCP endpoint’ов.</li>
+        <li>Смешивать product API и integration layer.</li>
+        <li>Держать архитектуру на ручной сборке коннекторов.</li>
+      </ul>
+    </div>
+
+    <div class="eq-sign">→</div>
+
+    <div class="equation-result">
+      <h4>Что выглядит зрелым</h4>
+      <ul>
+        <li>FastAPI как внешний BFF/API слой.</li>
+        <li>FastMCP Cloud Gateway как единая MCP точка входа.</li>
+        <li>Registry как каталог и discovery-слой.</li>
+        <li>MCP servers как execution layer реальных интеграций.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    То есть конец доклада не про “ещё один framework”, а про зрелую форму системы:
+    product API сверху, gateway посередине, MCP-интеграции снизу.
+  </div>
+</section>
     </div>
   </div>
 <!--  VMCP-GATEWAY -->
