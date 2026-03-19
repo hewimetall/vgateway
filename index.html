@@ -1,1469 +1,781 @@
 <!doctype html>
 <html lang="ru">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>От Base LLM к MCP — подводка</title>
-
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/styles/github-dark.min.css" />
-
+  <title>MCP Gateway Deck</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+  <!-- Подключаем тему для Highlight.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
     :root {
-      --bg: #08111f;
-      --bg2: #0d1b2a;
-      --panel: #111c2e;
-      --panel-2: #14233a;
-      --text: #eaf2ff;
-      --muted: #9db0cc;
-      --blue: #58a6ff;
-      --cyan: #5eead4;
-      --violet: #a78bfa;
-      --green: #34d399;
-      --yellow: #fbbf24;
-      --red: #f87171;
-      --border: rgba(255, 255, 255, .10);
-      --shadow: 0 20px 60px rgba(0, 0, 0, .35);
+      --bg:#08111f; --bg2:#0d1b2a; --panel:#111c2e; --panel2:#14233a; --text:#eaf2ff; --muted:#9db0cc;
+      --blue:#58a6ff; --cyan:#5eead4; --violet:#a78bfa; --green:#34d399; --yellow:#fbbf24; --red:#f87171; --orange:#f97316;
+      --border:rgba(255,255,255,.10); --shadow:0 20px 60px rgba(0,0,0,.35);
     }
-
-    html,
-    body {
+    html,body{
       background:
-        radial-gradient(circle at top left, rgba(88, 166, 255, .18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(167, 139, 250, .14), transparent 24%),
+        radial-gradient(circle at top left, rgba(88,166,255,.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(167,139,250,.14), transparent 24%),
         linear-gradient(135deg, var(--bg), var(--bg2));
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
-
-    .reveal {
-      font-size: 34px;
+    .reveal{font-size:33px;}
+    .reveal .slides section{text-align:left;padding:8px 16px;}
+    .reveal h1,.reveal h2,.reveal h3{text-transform:none;letter-spacing:-.02em;color:#f7fbff;margin-bottom:.32em;}
+    .reveal h1{font-size:2.05em;}
+    .reveal h2{font-size:1.48em;}
+    .reveal h3{font-size:.92em;color:var(--cyan);}
+    .reveal p,.reveal li{line-height:1.32;}
+    .reveal ul{margin-left:1em;}
+    .reveal li{margin-bottom:.26em;}
+    .hero,.two-col,.three-col,.bottom-grid,.five-col,.flow3{display:grid;gap:20px;align-items:start;}
+    .hero{grid-template-columns:1.15fr .85fr;min-height:620px;}
+    .two-col{grid-template-columns:1fr 1fr;}
+    .three-col{grid-template-columns:repeat(3,1fr);}
+    .five-col{grid-template-columns:repeat(5,1fr);}
+    .bottom-grid{grid-template-columns:1.1fr .9fr;}
+    .flow3{grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;}
+    .box,.panel,.metric,.timeline-card,.callout,.mini,.diagram-box,.quote-box,.chipbox{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);
     }
+    .box,.panel,.diagram-box,.quote-box,.chipbox{padding:22px 24px;}
+    .hero-box{padding:30px 34px;}
+    .metric{padding:18px 20px;}
+    .eyebrow{display:inline-block;font-size:.42em;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;}
+    .big{font-size:1.16em;line-height:1.08;font-weight:800;margin-bottom:16px;}
+    .lead{font-size:.72em;color:var(--muted);line-height:1.42;}
+    .panel-title{display:flex;gap:10px;align-items:center;font-size:.82em;font-weight:800;margin-bottom:14px;}
+    .step{padding:12px 0;border-top:1px solid rgba(255,255,255,.08);}
+    .step:first-of-type{border-top:none;}
+    .step-year{font-size:.48em;color:var(--yellow);font-weight:800;margin-bottom:6px;}
+    .step-title{font-size:.62em;font-weight:700;margin-bottom:5px;}
+    .step-desc{font-size:.49em;color:var(--muted);line-height:1.35;}
+    .small{font-size:.58em;color:var(--muted);}
+    .tiny{font-size:.46em;color:var(--muted);}
+    .metric .v{font-size:1.02em;font-weight:800;margin-bottom:6px;}
+    .metric .l{font-size:.50em;color:var(--muted);}
+    .equation{font-size:.84em;font-weight:800;color:#fff;text-align:center;padding:14px 12px;border-radius:16px;background:linear-gradient(90deg, rgba(94,234,212,.12), rgba(88,166,255,.12));border:1px solid rgba(255,255,255,.12);margin-top:14px;}
+    .callout{padding:16px 18px;font-size:.58em;line-height:1.38;border-left:5px solid var(--yellow);background:rgba(251,191,36,.08);}
+    .callout.red{border-left-color:var(--red);background:rgba(248,113,113,.08);}
+    .callout.cyan{border-left-color:var(--cyan);background:rgba(94,234,212,.08);}
+    .callout.orange{border-left-color:var(--orange);background:rgba(249,115,22,.08);}
+    .timeline{display:grid;grid-template-columns:1fr 120px 1fr;gap:18px;align-items:stretch;margin-top:18px;}
+    .timeline-center{position:relative;min-height:520px;}
+    .timeline-center:before{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:4px;transform:translateX(-50%);background:linear-gradient(var(--blue),var(--violet));border-radius:999px;opacity:.9;}
+    .year-dot{position:absolute;left:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;display:grid;place-items:center;font-size:.48em;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--blue),var(--violet));border:4px solid rgba(8,17,31,.9);box-shadow:0 12px 30px rgba(0,0,0,.35);}
+    .y2021{top:12%;}.y2022{top:34%;}.y2023{top:62%;}.y2024{top:88%;}
+    .timeline-card{padding:18px 20px;min-height:118px;}
+    .timeline-card h4{font-size:.62em;margin:0 0 8px 0;color:#fff;}
+    .timeline-card p{font-size:.48em;color:var(--muted);margin:0;}
+    .merge-banner{margin-top:16px;padding:18px 22px;border-radius:18px;background:linear-gradient(90deg, rgba(88,166,255,.15), rgba(167,139,250,.15));border:1px solid rgba(255,255,255,.12);font-size:.66em;font-weight:700;}
+    .node{padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);font-size:.5em;line-height:1.35;}
+    .node strong{display:block;font-size:1.06em;margin-bottom:4px;color:#fff;}
+    .arrow{text-align:center;font-size:1.2em;color:var(--yellow);line-height:1;}
+    .context-node{background:linear-gradient(180deg, rgba(251,191,36,.14), rgba(251,191,36,.08));border:1px solid rgba(251,191,36,.28);}
+    .result-node{background:linear-gradient(180deg, rgba(88,166,255,.12), rgba(88,166,255,.06));border:1px solid rgba(88,166,255,.22);}
+    .primitive-list{display:grid;gap:12px;margin-top:16px;}
+    .primitive{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:start;padding:14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+    .picon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.1em;background:rgba(88,166,255,.18);color:#fff;}
+    .primitive h5{font-size:.58em;margin:0 0 4px 0;}
+    .primitive p{font-size:.46em;color:var(--muted);margin:0;}
+    .flow-node{padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--border);text-align:center;}
+    .flow-node.python{border-color:rgba(88,166,255,.3);background:linear-gradient(180deg,rgba(88,166,255,.1),rgba(88,166,255,.02));}
+    .flow-node.redis{border-color:rgba(248,113,113,.3);background:linear-gradient(180deg,rgba(248,113,113,.1),rgba(248,113,113,.02));}
+    .flow-node.rust{border-color:rgba(249,115,22,.3);background:linear-gradient(180deg,rgba(249,115,22,.1),rgba(249,115,22,.02));}
+    .flow-node strong{display:block;font-size:.65em;color:#fff;margin-bottom:6px;}
+    .flow-node span{font-size:.45em;color:var(--muted);}
+    .flow-arrow{font-size:1.5em;color:var(--yellow);text-align:center;}
+    .mermaid svg {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 300px; /* Чтобы схема не схлопывалась по высоте */
+}
 
-    .reveal .slides section {
-      text-align: left;
-      padding: 10px 20px;
-    }
-
-    .reveal h1,
-    .reveal h2,
-    .reveal h3 {
-      text-transform: none;
-      letter-spacing: -0.02em;
-      color: #f7fbff;
-      margin-bottom: 0.35em;
-    }
-
-    .reveal h1 {
-      font-size: 2.15em;
-    }
-
-    .reveal h2 {
-      font-size: 1.6em;
-    }
-
-    .reveal h3 {
-      font-size: 1.0em;
-      color: var(--cyan);
-    }
-
-    .reveal p,
-    .reveal li {
-      color: var(--text);
-      line-height: 1.35;
-    }
-
-    .reveal ul {
-      margin-left: 1.1em;
-    }
-
-    .reveal li {
-      margin-bottom: 0.3em;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .small {
-      font-size: 0.58em;
-      line-height: 1.35;
-    }
-
-    .tiny {
-      font-size: 0.48em;
-      line-height: 1.35;
-    }
-
-    .hero {
-      min-height: 620px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-box,
-    .panel,
-    .timeline-card,
-    .metric,
-    .callout,
-    .quote-box,
-    .diagram-box,
-    .bottom-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-box {
-      padding: 30px 34px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.42em;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 18px;
-    }
-
-    .big-question {
-      font-size: 1.24em;
-      line-height: 1.08;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .lead {
-      font-size: 0.72em;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .hero-right {
-      display: grid;
-      gap: 18px;
-    }
-
-    .metric {
-      padding: 20px 22px;
-    }
-
-    .metric .icon {
-      font-size: 1.2em;
-      color: var(--blue);
-      margin-bottom: 8px;
-    }
-
-    .metric .value {
-      font-size: 1.1em;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .metric .label {
-      font-size: 0.52em;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .panel {
-      padding: 22px 24px;
-      min-height: 490px;
-    }
-
-    .panel.align {
-      border-color: rgba(94, 234, 212, .28);
-      box-shadow: 0 20px 60px rgba(94, 234, 212, .08);
-    }
-
-    .panel.augment {
-      border-color: rgba(167, 139, 250, .28);
-      box-shadow: 0 20px 60px rgba(167, 139, 250, .08);
-    }
-
-    .panel-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.9em;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .panel-title i {
-      font-size: 1.05em;
-    }
-
-    .chip {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.42em;
-      font-weight: 700;
-      letter-spacing: .04em;
-      margin-bottom: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, .04);
-    }
-
-    .step {
-      padding: 14px 0;
-      border-top: 1px solid rgba(255, 255, 255, .08);
-    }
-
-    .step:first-of-type {
-      border-top: none;
-    }
-
-    .step-year {
-      font-size: 0.5em;
-      color: var(--yellow);
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .step-title {
-      font-size: 0.66em;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .step-desc {
-      font-size: 0.5em;
-      color: var(--muted);
-      line-height: 1.38;
-    }
-
-    .center-note {
-      margin-top: 22px;
-      font-size: 0.6em;
-      color: #dff7f3;
-      padding: 14px 18px;
-      border-left: 4px solid var(--cyan);
-      background: rgba(94, 234, 212, .08);
-      border-radius: 14px;
-    }
-
-    .timeline {
-      display: grid;
-      grid-template-columns: 1fr 120px 1fr;
-      gap: 18px;
-      align-items: stretch;
-      margin-top: 18px;
-    }
-
-    .timeline-center {
-      position: relative;
-      min-height: 520px;
-    }
-
-    .timeline-center::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 10px;
-      bottom: 10px;
-      width: 4px;
-      transform: translateX(-50%);
-      background: linear-gradient(var(--blue), var(--violet));
-      border-radius: 999px;
-      opacity: .9;
-    }
-
-    .year-dot {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 0.48em;
-      font-weight: 800;
-      color: white;
-      background: linear-gradient(135deg, var(--blue), var(--violet));
-      border: 4px solid rgba(8, 17, 31, .9);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
-    }
-
-    .y2021 {
-      top: 12%;
-    }
-
-    .y2022 {
-      top: 34%;
-    }
-
-    .y2023 {
-      top: 62%;
-    }
-
-    .y2024 {
-      top: 88%;
-    }
-
-    .timeline-card {
-      padding: 18px 20px;
-      margin-bottom: 18px;
-      min-height: 118px;
-    }
-
-    .timeline-card h4 {
-      font-size: 0.62em;
-      margin: 0 0 8px 0;
-      color: #fff;
-    }
-
-    .timeline-card p {
-      font-size: 0.48em;
-      color: var(--muted);
+    /* Стили для блоков кода Highlight.js */
+    /* Стили для блоков кода Highlight.js */
+    .reveal pre {
       margin: 0;
-    }
-
-    .merge-banner {
-      margin-top: 16px;
-      padding: 18px 22px;
+      width: 100%;
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,.08);
       border-radius: 18px;
-      background: linear-gradient(90deg, rgba(88, 166, 255, .15), rgba(167, 139, 250, .15));
-      border: 1px solid rgba(255, 255, 255, .12);
-      font-size: 0.66em;
-      font-weight: 700;
+      background: rgba(255,255,255,.03);
     }
-
-    .equation-box {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 22px;
-      align-items: center;
-      margin-top: 24px;
-    }
-
-    .equation-side,
-    .equation-result {
-      padding: 24px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
-      border: 1px solid var(--border);
-      min-height: 210px;
-    }
-
-    .equation-side h4,
-    .equation-result h4 {
-      font-size: 0.7em;
-      margin-bottom: 12px;
-    }
-
-    .equation-side ul,
-    .equation-result ul {
-      font-size: 0.54em;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .eq-sign {
-      font-size: 2.2em;
-      font-weight: 900;
-      color: var(--yellow);
-      text-align: center;
-    }
-
-    .zoo-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .zoo-item {
-      padding: 18px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
-      border: 1px solid var(--border);
-      min-height: 165px;
-    }
-
-    .zoo-item .logo {
-      font-size: 1.45em;
-      margin-bottom: 12px;
-      color: var(--blue);
-    }
-
-    .zoo-item h4 {
-      font-size: 0.6em;
-      margin-bottom: 8px;
-    }
-
-    .zoo-item p {
-      font-size: 0.46em;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .callout {
-      margin-top: 18px;
-      padding: 18px 22px;
-      font-size: 0.62em;
+    .reveal pre code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75em; /* Увеличили размер шрифта (было .56em) */
       line-height: 1.4;
-      border-left: 5px solid var(--red);
-      background: rgba(248, 113, 113, .08);
+      padding: 24px 26px; /* Чуть увеличили отступы для красоты */
+      border-radius: 18px;
+      background: transparent;
+      max-height: none;
+      -webkit-font-smoothing: antialiased; /* Улучшает четкость (убирает пиксельность) */
+      -moz-osx-font-smoothing: grayscale;
     }
-
-    .mcp-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 22px;
-      margin-top: 18px;
-      align-items: start;
-    }
-
-    .quote-box {
-      padding: 22px 24px;
-    }
-
-    .proto-box {
-      padding: 22px 24px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(88, 166, 255, .08), rgba(167, 139, 250, .08));
-      border: 1px solid rgba(255, 255, 255, .12);
-      box-shadow: var(--shadow);
-    }
-
-    .proto-box h4,
-    .quote-box h4 {
-      font-size: 0.72em;
-      margin-bottom: 12px;
-    }
-
-    .proto-box p,
-    .quote-box p {
-      font-size: 0.52em;
-      color: var(--muted);
-      line-height: 1.42;
-      margin-bottom: 10px;
-    }
-
-    .primitive-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .primitive {
-      display: grid;
-      grid-template-columns: 54px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .04);
-      border: 1px solid rgba(255, 255, 255, .08);
-    }
-
-    .primitive .picon {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-size: 1.1em;
-      background: rgba(88, 166, 255, .18);
-      color: #fff;
-    }
-
-    .primitive h5 {
-      font-size: 0.58em;
-      margin: 0 0 4px 0;
-    }
-
-    .primitive p {
-      font-size: 0.46em;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .bottom-line {
-      margin-top: 16px;
-      font-size: 0.62em;
-      font-weight: 700;
-      color: #eef7ff;
-      padding: 14px 18px;
-      border-radius: 16px;
-      background: linear-gradient(90deg, rgba(94, 234, 212, .12), rgba(88, 166, 255, .12));
-      border: 1px solid rgba(255, 255, 255, .12);
-    }
-
-    .diagram-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      margin-top: 20px;
-    }
-
-    .diagram-box {
-      padding: 22px 22px 18px;
-      min-height: 470px;
-      border-radius: 24px;
-    }
-
-    .diagram-box.rag {
-      border-color: rgba(94, 234, 212, .26);
-      box-shadow: 0 20px 60px rgba(94, 234, 212, .08);
-    }
-
-    .diagram-box.tools {
-      border-color: rgba(88, 166, 255, .26);
-      box-shadow: 0 20px 60px rgba(88, 166, 255, .08);
-    }
-
-    .diagram-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.84em;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
-
-    .flow {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .node {
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(255, 255, 255, .04);
-      font-size: 0.5em;
-      line-height: 1.35;
-    }
-
-    .node strong {
-      display: block;
-      font-size: 1.08em;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-
-    .arrow {
-      text-align: center;
-      font-size: 1.2em;
-      color: var(--yellow);
-      line-height: 1;
-    }
-
-    .context-node {
-      background: linear-gradient(180deg, rgba(251, 191, 36, .14), rgba(251, 191, 36, .08));
-      border: 1px solid rgba(251, 191, 36, .28);
-    }
-
-    .result-node {
-      background: linear-gradient(180deg, rgba(88, 166, 255, .12), rgba(88, 166, 255, .06));
-      border: 1px solid rgba(88, 166, 255, .22);
-    }
-
-    .bottom-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .bottom-card {
-      padding: 18px 20px;
-      border-radius: 20px;
-    }
-
-    .bottom-card h4 {
-      font-size: 0.64em;
-      margin-bottom: 8px;
-    }
-
-    .bottom-card p,
-    .bottom-card li {
-      font-size: 0.48em;
-      color: var(--muted);
-    }
-
-    .mini-equation {
-      font-size: 0.82em;
-      font-weight: 800;
-      color: #fff;
-      text-align: center;
-      padding: 14px 12px;
-      border-radius: 16px;
-      background: linear-gradient(90deg, rgba(94, 234, 212, .12), rgba(88, 166, 255, .12));
-      border: 1px solid rgba(255, 255, 255, .12);
-      margin-top: 10px;
-    }
-
-    .sources {
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      bottom: 8px;
-      font-size: 0.34em;
-      color: #8ea3bf;
-      line-height: 1.35;
-    }
-
-    .reveal .progress {
-      color: var(--blue);
-      height: 6px;
-    }
-
-    .reveal .controls {
-      color: var(--blue);
-    }
-
-    .accent-blue {
-      color: var(--blue);
-    }
-
-    .accent-cyan {
-      color: var(--cyan);
-    }
-
-    .accent-violet {
-      color: var(--violet);
-    }
-
-    .accent-yellow {
-      color: var(--yellow);
-    }
-
-    .accent-red {
-      color: var(--red);
-    }
-
-    @media (max-width: 1200px) {
-
-      .hero,
-      .two-col,
-      .timeline,
-      .mcp-grid,
-      .zoo-grid,
-      .equation-box,
-      .diagram-wrap,
-      .bottom-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .timeline-center {
-        display: none;
-      }
-
-      .panel,
-      .hero-box,
-      .diagram-box {
-        min-height: auto;
-      }
-    }
+    .table-lite{width:100%;border-collapse:collapse;font-size:.5em;}
+    .table-lite th,.table-lite td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;}
+    .table-lite th{color:#fff;}.table-lite td{color:var(--muted);}
+    .accent-blue{color:var(--blue)} .accent-cyan{color:var(--cyan)} .accent-violet{color:var(--violet)} .accent-yellow{color:var(--yellow)} .accent-red{color:var(--red)} .accent-orange{color:var(--orange)}
+    .reveal .progress{color:var(--blue);height:6px;}.reveal .controls{color:var(--blue);}
+    .mermaid{background:transparent !important;}
+    @media (max-width:1200px){.hero,.two-col,.three-col,.bottom-grid,.five-col,.timeline,.flow3{grid-template-columns:1fr!important}.timeline-center{display:none}}
   </style>
 </head>
-
 <body>
-  <div class="reveal">
-    <div class="reveal">
-      <div class="slides">
+<div class="reveal"><div class="slides">
 
-        <section>
-          <div class="hero">
-            <div class="box hero-box">
-              <div class="eyebrow">Code Fest</div>
-              <h1><span class="accent-cyan">MCP Gateway</span></h1>
-              <div class="big">Когда tools перестают быть интеграцией<br>и становятся архитектурой</div>
-              <p class="lead">История от LLM и function calling к MCP, затем к framework-слою, а потом — к собственному
-                gateway и production-архитектуре.</p>
-              <div class="equation">tools → MCP → framework → gateway → platform</div>
-            </div>
-            <div>
-              <div class="metric">
-                <div class="v">40 минут</div>
-                <div class="l">быстрый темп, много визуальных слайдов</div>
-              </div>
-              <div class="metric">
-                <div class="v">3 акта</div>
-                <div class="l">почему, на чём строить, как довести до production</div>
-              </div>
-              <div class="metric">
-                <div class="v">1 герой</div>
-                <div class="l">в центре не протокол сам по себе, а MCP gateway</div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section>
-          <div class="hero">
-            <div class="box hero-box">
-              <div class="eyebrow">Base LLM → MCP</div>
-              <h1>От LLM к <span class="accent-cyan">tools</span>, а затем к <span class="accent-blue">MCP</span></h1>
-              <div class="big">LLM стали полезнее не только потому, что лучше думают,<br>но и потому, что умеют работать
-                с внешним миром</div>
-              <p class="lead">Это и есть вход в тему: сначала появились useful models, потом context tools, а затем
-                возникла потребность стандартизировать эти взаимодействия.</p>
-            </div>
-            <div>
-              <div class="metric">
-                <div class="v">2 трека</div>
-                <div class="l">alignment и augmentation</div>
-              </div>
-              <div class="metric">
-                <div class="v">2023</div>
-                <div class="l">tools стали массовым паттерном</div>
-              </div>
-              <div class="metric">
-                <div class="v">2024</div>
-                <div class="l">MCP оформил общий протокол</div>
-              </div>
-            </div>
-          </div>
-        </section>
+<section>
+  <div class="hero">
+    <div class="box hero-box">
+      <div class="eyebrow">Code Fest</div>
+      <h1><span class="accent-cyan">MCP Gateway</span></h1>
+      <div class="big">Когда tools перестают быть интеграцией<br>и становятся архитектурой</div>
+      <p class="lead">История от LLM и function calling к MCP, затем к framework-слою, а потом — к собственному gateway и production-архитектуре.</p>
+      <div class="equation">tools → MCP → framework → gateway → platform</div>
+    </div>
+    <div>
+      <div class="metric"><div class="v">40 минут</div><div class="l">быстрый темп, много визуальных слайдов</div></div>
+      <div class="metric"><div class="v">3 акта</div><div class="l">почему, на чём строить, как довести до production</div></div>
+      <div class="metric"><div class="v">1 герой</div><div class="l">в центре не протокол сам по себе, а MCP gateway</div></div>
+    </div>
+  </div>
+</section>
 
-        <section>
-          <h2>Два трека эволюции</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-bullseye"></i>Alignment track</div>
-              <div class="step">
-                <div class="step-year">2021</div>
-                <div class="step-title">Instruction tuning</div>
-                <div class="step-desc">Модели лучше следуют инструкции и становятся понятнее в zero-shot сценариях.
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-year">2022</div>
-                <div class="step-title">InstructGPT / RLHF</div>
-                <div class="step-desc">Появляется полезная модель, а не просто следующая версия base LLM.</div>
-              </div>
-              <div class="step">
-                <div class="step-year">2023+</div>
-                <div class="step-title">Useful models</div>
-                <div class="step-desc">Качество ответа улучшается, но модель всё ещё ограничена собственным контекстом.
-                </div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-plug"></i>Augmentation track</div>
-              <div class="step">
-                <div class="step-year">2020</div>
-                <div class="step-title">RAG</div>
-                <div class="step-desc">Модель умеет подтягивать внешний контекст и отвечать на основе данных.</div>
-              </div>
-              <div class="step">
-                <div class="step-year">2022</div>
-                <div class="step-title">ReAct</div>
-                <div class="step-desc">Рассуждение связывается с действием и обращением к внешнему миру.</div>
-              </div>
-              <div class="step">
-                <div class="step-year">2023</div>
-                <div class="step-title">Function calling</div>
-                <div class="step-desc">Появляется структурированный способ вызывать инструменты и API.</div>
-              </div>
-            </div>
-          </div>
-          <div class="callout cyan">Полезные модели и внешние инструменты развивались параллельно — MCP возник на их
-            пересечении.</div>
-        </section>
 
-        <section>
-          <h2>Таймлайн 2021–2024</h2>
-          <div class="timeline">
-            <div>
-              <div class="timeline-card">
-                <h4>Instruction following</h4>
-                <p>Модели становятся предсказуемее и лучше понимают задачу пользователя.</p>
-              </div>
-              <div class="timeline-card">
-                <h4>RLHF</h4>
-                <p>Появляется понятие useful model — моделью уже можно пользоваться как продуктом.</p>
-              </div>
-              <div class="timeline-card">
-                <h4>Улучшение качества</h4>
-                <p>Ответы лучше, но доступ к реальному миру всё ещё ограничен контекстным окном.</p>
-              </div>
-            </div>
-            <div class="timeline-center">
-              <div class="year-dot y2021">2021</div>
-              <div class="year-dot y2022">2022</div>
-              <div class="year-dot y2023">2023</div>
-              <div class="year-dot y2024">2024</div>
-            </div>
-            <div>
-              <div class="timeline-card">
-                <h4>RAG</h4>
-                <p>Внешние знания становятся частью ответа.</p>
-              </div>
-              <div class="timeline-card">
-                <h4>ReAct</h4>
-                <p>LLM уже не только отвечает, но и делает шаги в цикле reasoning + acting.</p>
-              </div>
-              <div class="timeline-card">
-                <h4>Function calling → MCP</h4>
-                <p>Инструменты стандартизируются и начинают жить как отдельная платформа.</p>
-              </div>
-            </div>
-          </div>
-          <div class="merge-banner">Поворотный момент: в 2023–2024 модели научились не только отвечать, но и работать с
-            внешними системами системно.</div>
-        </section>
+<section>
+  <div class="hero">
+    <div class="box hero-box">
+      <div class="eyebrow">Base LLM → MCP</div>
+      <h1>От LLM к <span class="accent-cyan">tools</span>, а затем к <span class="accent-blue">MCP</span></h1>
+      <div class="big">LLM стали полезнее не только потому, что лучше думают,<br>но и потому, что умеют работать с внешним миром</div>
+      <p class="lead">Это и есть вход в тему: сначала появились useful models, потом context tools, а затем возникла потребность стандартизировать эти взаимодействия.</p>
+    </div>
+    <div>
+      <div class="metric"><div class="v">2 трека</div><div class="l">alignment и augmentation</div></div>
+      <div class="metric"><div class="v">2023</div><div class="l">tools стали массовым паттерном</div></div>
+      <div class="metric"><div class="v">2024</div><div class="l">MCP оформил общий протокол</div></div>
+    </div>
+  </div>
+</section>
 
-        <section>
-          <h2><span class="accent-cyan">RAG</span> vs <span class="accent-blue">Tools</span></h2>
-          <div class="two-col">
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-database-add"></i>RAG</div>
-              <div class="node"><strong>1. User query</strong>Запрос требует знания, которого нет в исходном контексте
-                модели.</div>
-              <div class="arrow">↓</div>
-              <div class="node"><strong>2. Retrieval</strong>Достаём релевантные документы или записи из внешней базы.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node context-node"><strong>3. Retrieved context</strong>Подмешиваем найденное знание в
-                контекст модели.</div>
-              <div class="arrow">↓</div>
-              <div class="node result-node"><strong>4. LLM answer</strong>Модель отвечает лучше, потому что знает
-                больше.</div>
-            </div>
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-wrench-adjustable-circle"></i>Tools</div>
-              <div class="node"><strong>1. User query</strong>Запрос требует не только знания, но и действия.</div>
-              <div class="arrow">↓</div>
-              <div class="node"><strong>2. Tool schema</strong>Модель видит контракт инструмента и понимает, как вызвать
-                действие.</div>
-              <div class="arrow">↓</div>
-              <div class="node"><strong>3. Tool call execution</strong>Происходит реальный вызов API, сервиса или
-                workflow.</div>
-              <div class="arrow">↓</div>
-              <div class="node context-node"><strong>4. Tool result</strong>Результат действия возвращается модели в
-                контекст.</div>
-            </div>
-          </div>
-          <div class="equation">RAG помогает модели знать, tools помогают модели делать</div>
-        </section>
 
-        <section>
-          <h2>MCP как стандартная поверхность</h2>
-          <div class="two-col">
-            <div class="quote-box">
-              <div class="panel-title"><i class="bi bi-diagram-3"></i>MCP</div>
-              <p class="small">MCP даёт общий протокол, через который AI-приложения могут работать с внешними системами
-                предсказуемо и единообразно.</p>
-              <div class="primitive-list">
-                <div class="primitive">
-                  <div class="picon"><i class="bi bi-wrench-adjustable-circle"></i></div>
-                  <div>
-                    <h5>Tools</h5>
-                    <p>Действия и API-вызовы, которые модель может инициировать.</p>
-                  </div>
-                </div>
-                <div class="primitive">
-                  <div class="picon"><i class="bi bi-folder2-open"></i></div>
-                  <div>
-                    <h5>Resources</h5>
-                    <p>Данные и документы, которые можно читать как контекст.</p>
-                  </div>
-                </div>
-                <div class="primitive">
-                  <div class="picon"><i class="bi bi-card-text"></i></div>
-                  <div>
-                    <h5>Prompts</h5>
-                    <p>Готовые шаблоны и сценарии взаимодействия.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-lightbulb"></i>Почему это важно</div>
-              <ul class="small">
-                <li>Модель перестаёт жить только внутри prompt.</li>
-                <li>Внешние системы получают единый способ интеграции.</li>
-                <li>Появляется пространство для gateway, policy и orchestration.</li>
-              </ul>
-              <div class="callout cyan">Именно здесь начинается разговор не просто про tools, а про MCP gateway как
-                новый слой системы.</div>
-            </div>
-          </div>
-        </section>
+<section>
+  <h2>Два трека эволюции</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-bullseye"></i>Alignment track</div>
+      <div class="step"><div class="step-year">2021</div><div class="step-title">Instruction tuning</div><div class="step-desc">Модели лучше следуют инструкции и становятся понятнее в zero-shot сценариях.</div></div>
+      <div class="step"><div class="step-year">2022</div><div class="step-title">InstructGPT / RLHF</div><div class="step-desc">Появляется полезная модель, а не просто следующая версия base LLM.</div></div>
+      <div class="step"><div class="step-year">2023+</div><div class="step-title">Useful models</div><div class="step-desc">Качество ответа улучшается, но модель всё ещё ограничена собственным контекстом.</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-plug"></i>Augmentation track</div>
+      <div class="step"><div class="step-year">2020</div><div class="step-title">RAG</div><div class="step-desc">Модель умеет подтягивать внешний контекст и отвечать на основе данных.</div></div>
+      <div class="step"><div class="step-year">2022</div><div class="step-title">ReAct</div><div class="step-desc">Рассуждение связывается с действием и обращением к внешнему миру.</div></div>
+      <div class="step"><div class="step-year">2023</div><div class="step-title">Function calling</div><div class="step-desc">Появляется структурированный способ вызывать инструменты и API.</div></div>
+    </div>
+  </div>
+  <div class="callout cyan">Полезные модели и внешние инструменты развивались параллельно — MCP возник на их пересечении.</div>
+</section>
 
-        <section>
-          <h2>MCP architecture</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-person-workspace"></i>Роли</div>
-              <ul class="small">
-                <li><strong>Host</strong> — держит UX, consent, orchestration и policy boundary.</li>
-                <li><strong>Client</strong> — говорит по протоколу с сервером.</li>
-                <li><strong>Server</strong> — публикует tools, resources и prompts.</li>
-              </ul>
-              <div class="callout">Это уже не просто HTTP endpoint: тут есть роли, состояние и жизненный цикл
-                взаимодействия.</div>
-            </div>
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-diagram-3"></i>Схема</div>
-              <div class="mermaid">
-                flowchart LR
-                H[Host]
-                C1[Client A]
-                C2[Client B]
-                S1[MCP Server 1]
-                S2[MCP Server 2]
-                H --> C1
-                H --> C2
-                C1 --> S1
-                C2 --> S2
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section>
-          <h2>Proxy vs MCP gateway</h2>
-          <div class="two-col">
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-x-octagon"></i>Обычный proxy</div>
-              <div class="mermaid">
-                flowchart LR
-                U[User] --> A[LLM App]
-                A --> P[Proxy]
-                P --> S1[Tool Server A]
-                P --> S2[Tool Server B]
-              </div>
-              <p class="small">Proxy умеет переслать запрос, но не понимает сессионную модель, capability negotiation и
-                границы orchestration.</p>
-            </div>
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-check2-circle"></i>MCP gateway</div>
-              <div class="mermaid">
-                flowchart LR
-                U[User] --> H[Host]
-                H --> C1[Client A]
-                H --> C2[Client B]
-                C1 --> S1[MCP Server A]
-                C2 --> S2[MCP Server B]
-              </div>
-              <p class="small">MCP gateway понимает state, lifecycle, negotiated features и может собирать несколько
-                downstream серверов в одну поверхность.</p>
-            </div>
-          </div>
-          <div class="callout red">Главная мысль: MCP gateway — не reverse proxy, а stateful application layer.</div>
-        </section>
+<section>
+  <h2>Таймлайн 2021–2024</h2>
+  <div class="timeline">
+    <div>
+      <div class="timeline-card"><h4>Instruction following</h4><p>Модели становятся предсказуемее и лучше понимают задачу пользователя.</p></div>
+      <div class="timeline-card"><h4>RLHF</h4><p>Появляется понятие useful model — моделью уже можно пользоваться как продуктом.</p></div>
+      <div class="timeline-card"><h4>Улучшение качества</h4><p>Ответы лучше, но доступ к реальному миру всё ещё ограничен контекстным окном.</p></div>
+    </div>
+    <div class="timeline-center">
+      <div class="year-dot y2021">2021</div>
+      <div class="year-dot y2022">2022</div>
+      <div class="year-dot y2023">2023</div>
+      <div class="year-dot y2024">2024</div>
+    </div>
+    <div>
+      <div class="timeline-card"><h4>RAG</h4><p>Внешние знания становятся частью ответа.</p></div>
+      <div class="timeline-card"><h4>ReAct</h4><p>LLM уже не только отвечает, но и делает шаги в цикле reasoning + acting.</p></div>
+      <div class="timeline-card"><h4>Function calling → MCP</h4><p>Инструменты стандартизируются и начинают жить как отдельная платформа.</p></div>
+    </div>
+  </div>
+  <div class="merge-banner">Поворотный момент: в 2023–2024 модели научились не только отвечать, но и работать с внешними системами системно.</div>
+</section>
 
-        <section>
-          <h2>Транспорт и сессия</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-hdd-network"></i>Transport landscape</div>
-              <ul class="small">
-                <li>stdio — subprocess и прямой IO.</li>
-                <li>Streamable HTTP — JSON-RPC поверх HTTP.</li>
-                <li>SSE — server-to-client streaming и совместимость.</li>
-              </ul>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Что делает MCP сложнее</div>
-              <ul class="small">
-                <li>Session binding и lifecycle.</li>
-                <li>Initialize и capability negotiation.</li>
-                <li>Notifications, progress, logs.</li>
-                <li>Нужен boundary, который всё это понимает.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="equation">HTTP endpoint ≠ MCP gateway</div>
-        </section>
 
-        <section>
-          <h2>MCP gateway как фреймворк зрелости</h2>
-          <div class="three-col">
-            <div class="chipbox">
-              <div class="panel-title"><i class="bi bi-terminal"></i>Local</div>
-              <p class="small">Локальный runtime, stdio, in-memory state, быстрый developer loop.</p>
-              <div class="equation" style="font-size:.58em">stdio · dev · in-memory</div>
-            </div>
-            <div class="chipbox">
-              <div class="panel-title"><i class="bi bi-globe2"></i>Web</div>
-              <p class="small">HTTP endpoint, session mapping, streaming, auth boundary и policy.</p>
-              <div class="equation" style="font-size:.58em">session id · stream · auth</div>
-            </div>
-            <div class="chipbox">
-              <div class="panel-title"><i class="bi bi-boxes"></i>Kubernetes</div>
-              <p class="small">Shared state, tenant isolation, routing, operational control и scale-out.</p>
-              <div class="equation" style="font-size:.58em">multi-tenant · routing · ops</div>
-            </div>
-          </div>
-          <div class="callout cyan">Это удобная рамка доклада: один и тот же MCP gateway взрослеет от локального runtime
-            до production-platform.</div>
-        </section>
+<section>
+  <h2><span class="accent-cyan">RAG</span> vs <span class="accent-blue">Tools</span></h2>
+  <div class="two-col">
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-database-add"></i>RAG</div>
+      <div class="node"><strong>1. User query</strong>Запрос требует знания, которого нет в исходном контексте модели.</div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>2. Retrieval</strong>Достаём релевантные документы или записи из внешней базы.</div>
+      <div class="arrow">↓</div>
+      <div class="node context-node"><strong>3. Retrieved context</strong>Подмешиваем найденное знание в контекст модели.</div>
+      <div class="arrow">↓</div>
+      <div class="node result-node"><strong>4. LLM answer</strong>Модель отвечает лучше, потому что знает больше.</div>
+    </div>
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-wrench-adjustable-circle"></i>Tools</div>
+      <div class="node"><strong>1. User query</strong>Запрос требует не только знания, но и действия.</div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>2. Tool schema</strong>Модель видит контракт инструмента и понимает, как вызвать действие.</div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>3. Tool call execution</strong>Происходит реальный вызов API, сервиса или workflow.</div>
+      <div class="arrow">↓</div>
+      <div class="node context-node"><strong>4. Tool result</strong>Результат действия возвращается модели в контекст.</div>
+    </div>
+  </div>
+  <div class="equation">RAG помогает модели знать, tools помогают модели делать</div>
+</section>
 
-        <section>
-          <h2>Framework layer: FastMCP</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-lightning-charge"></i>Что даёт framework</div>
-              <ul class="small">
-                <li>Python primitives для MCP-приложений.</li>
-                <li>Серверы, proxy и gateway-паттерны.</li>
-                <li>Быстрый старт для experiments и внутренних платформ.</li>
-              </ul>
-              <div class="callout">Это важный слайд для зала: MCP gateway не нужно собирать с нуля на голом протоколе.
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-code-square"></i>Минимальный FastMCP</div>
-              <div class="code">from fastmcp import FastMCP
 
-                mcp = FastMCP("Demo")
-
-                @mcp.tool
-                def echo(text: str) -> str:
-                return text</div>
-              <p class="tiny">Framework-слой превращает MCP из спецификации в инженерный конструктор.</p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Framework layer: proxy и mount</h2>
-          <div class="two-col">
-            <div class="diagram-box">
-              <div class="panel-title"><i class="bi bi-diagram-3"></i>Идея</div>
-              <div class="node"><strong>Client</strong>MCP endpoint для IDE, desktop-клиента или внутреннего workflow.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node context-node"><strong>FastMCP Proxy</strong>Собирает mounted servers в одну точку входа.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node"><strong>echo / fs / jira / github</strong>Ниже могут быть разные backend MCP servers.
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-code-slash"></i>Mounting</div>
-              <div class="code">from fastmcp import FastMCP
-                from fastmcp.server import create_proxy
-
-                mcp = FastMCP("proxy")
-                mcp.mount(create_proxy("./echo_server.py"), namespace="echo")
-                mcp.mount(create_proxy("./fs_server.py"), namespace="fs")
-
-                if __name__ == "__main__":
-                mcp.run(transport="http", port=8000)</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Framework layer: tool transforms</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-box-arrow-right"></i>До</div>
-              <div class="code">name: verbose_internal_data_fetcher
-                args:
-                - query
-                - include_metadata
-                - internal_limit
-                - debug</div>
-              <p class="tiny">Такой surface перегружает модель и раздувает контекст.</p>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-stars"></i>После</div>
-              <div class="code">name: search
-                args:
-                - query</div>
-              <p class="tiny">Gateway или framework может переименовать, скрыть аргументы и упростить контракт.</p>
-              <div class="equation">verbose_internal_data_fetcher → search</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div class="hero">
-            <div class="box hero-box">
-              <div class="eyebrow">Implementation</div>
-              <h1><span class="accent-cyan">vmcp-gateway</span> на FastAPI</h1>
-              <div class="big">Теперь приземляем framework-рамку<br>в собственный runtime</div>
-              <p class="lead">Здесь начинается твоя инженерная часть: SessionManager, handshake, route table,
-                notifications fan-in, tasks и transforms.</p>
-              <div class="equation">1 client session + N downstream sessions + 1 compact tool surface</div>
-            </div>
-            <div>
-              <div class="metric">
-                <div class="v">Session state</div>
-                <div class="l">capabilities, route table, active tasks</div>
-              </div>
-              <div class="metric">
-                <div class="v">Task layer</div>
-                <div class="l">workflow-level action поверх primitive tools</div>
-              </div>
-              <div class="metric">
-                <div class="v">Transforms</div>
-                <div class="l">управление agent-facing surface</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Компоненты MCP gateway</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-boxes"></i>Состав</div>
-              <div class="step">
-                <div class="step-title">Server Registry</div>
-                <div class="step-desc">upstream MCP servers: jira, github, slack.</div>
-              </div>
-              <div class="step">
-                <div class="step-title">SessionManager</div>
-                <div class="step-desc">client session, downstream sessions, routing table, active tasks.</div>
-              </div>
-              <div class="step">
-                <div class="step-title">ToolCatalog</div>
-                <div class="step-desc">visible tools, namespacing, transforms, capability filtering.</div>
-              </div>
-              <div class="step">
-                <div class="step-title">TaskRunner</div>
-                <div class="step-desc">workflow-level operations внутри gateway.</div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-file-earmark-code"></i>Bootstrap</div>
-              <div class="code">app = FastAPI(title="vmcp-gateway")
-
-                @app.on_event("startup")
-                async def startup():
-                app.state.registry = {
-                "jira": LocalMcpServer("http://localhost:9001/mcp"),
-                "github": LocalMcpServer("http://localhost:9002/mcp"),
-                "slack": LocalMcpServer("http://localhost:9003/mcp"),
-                }
-                app.state.sessions = {}
-                app.state.task_runner = TaskRunner()</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>SessionManager</h2>
-          <div class="bottom-grid">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-diagram-3"></i>GatewaySession</div>
-              <div class="code">class GatewaySession:
-                client_session_id
-                client_capabilities
-                downstream
-                tool_to_server
-                visible_tools
-                notifications_buffer
-                active_tasks</div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-database"></i>Зачем это нужно</div>
-              <ul class="small">
-                <li>Хранить downstream session ids и negotiated state.</li>
-                <li>Держать route table для tool calls.</li>
-                <li>Буферизовать notifications и task state.</li>
-                <li>Быть единым местом правды для runtime.</li>
-              </ul>
-              <div class="callout red">Вот здесь MCP gateway окончательно перестаёт быть прокси и становится stateful
-                application layer.</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Initialize: как собирается единый мир</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Handshake</div>
-              <div class="code">async def initialize(session_id, client_caps):
-                gw = GatewaySession(...)
-                for name, server in registry.items():
-                ds = await server.initialize(client_caps)
-                gw.downstream[name] = ds
-                for tool in ds.tools:
-                public = f"{name}.{tool.name}"
-                gw.tool_to_server[public] = name
-                gw.visible_tools.append({...})
-                sessions[session_id] = gw
-                return {"tools": gw.visible_tools}</div>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-signpost-split"></i>Что появляется после initialize</div>
-              <ul class="small">
-                <li>N downstream connections вместо одной локальной догадки.</li>
-                <li>Namespace вида `jira.create_issue`.</li>
-                <li>Capability snapshot на всю клиентскую сессию.</li>
-                <li>Единый tool catalog для клиента.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Route table вместо if-else ада</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-map"></i>Идея</div>
-              <ul class="small">
-                <li>Имена инструментов уже подготовлены при initialize.</li>
-                <li>По tool name сразу находим нужный server.</li>
-                <li>Клиент не знает и не должен знать, где реально живёт tool.</li>
-              </ul>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-arrow-left-right"></i>Вызов</div>
-              <div class="code">async def call_tool(session_id, tool_name, args):
-                gw = self.get(session_id)
-                server_name = gw.tool_to_server[tool_name]
-                downstream = gw.downstream[server_name]
-                raw_name = tool_name.split('.', 1)[1]
-                return await downstream.call_tool(raw_name, args)</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Notifications fan-in</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-broadcast"></i>Что собираем</div>
-              <ul class="small">
-                <li>Progress events.</li>
-                <li>Logging messages.</li>
-                <li>Domain notifications от downstream серверов.</li>
-                <li>Единый поток событий для клиента.</li>
-              </ul>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-code"></i>Модель</div>
-              <div class="code">for server_name, downstream in gw.downstream.items():
-                asyncio.create_task(forward(server_name, downstream))
-
-                wrapped = {
-                "source": server_name,
-                "event": event,
-                }</div>
-              <div class="callout orange">Fan-in событий — одна из самых недооценённых причин, почему MCP gateway
-                полезнее простого proxy.</div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Task layer: от primitive tools к workflow</h2>
-          <div class="two-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-list-task"></i>TaskRunner</div>
-              <div class="code">jira.create_issue
-                → github.create_pr
-                → slack.send_message</div>
-              <p class="small">Task поднимает уровень абстракции: агент видит действие верхнего уровня, а не набор
-                низкоуровневых шагов.</p>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-activity"></i>Lifecycle</div>
-              <div class="code">task_id
-                status = working
-                ...
-                status = completed | failed</div>
-              <p class="small">Task status, notifications и result дают наблюдаемость, которой не хватает обычному
-                набору tools.</p>
-            </div>
-          </div>
-          <div class="equation">Task = orchestration layer внутри MCP gateway</div>
-        </section>
-
-        <section>
-          <h2>Transforms, grouping и policy</h2>
-          <div class="three-col">
-            <div class="mini panel">
-              <h3>Transforms</h3>
-              <p class="small">Переименование, скрытие args, defaults, упрощение schema и description.</p>
-            </div>
-            <div class="mini panel">
-              <h3>Grouping</h3>
-              <p class="small">Issue Management, Repo &amp; PR, Messaging — компактный каталог для агента.</p>
-            </div>
-            <div class="mini panel">
-              <h3>Policy</h3>
-              <p class="small">Capability filtering и скрытие destructive operations по claims / scopes.</p>
-            </div>
-          </div>
-          <div class="callout cyan">Это и есть product-facing сторона MCP gateway: не только вызвать tool, но и
-            сформировать правильную поверхность для модели.</div>
-        </section>
-
-        <section>
-          <div class="hero">
-            <div class="box hero-box">
-              <div class="eyebrow">Production</div>
-              <h1>Event-Driven <span class="accent-cyan">MCP Gateway</span></h1>
-              <div class="big">FastAPI, <span class="accent-red">Redis Streams</span> и <span
-                  class="accent-orange">Rust</span></div>
-              <p class="lead">Здесь локальный in-memory runtime эволюционирует в production-grade distributed system с
-                message bus и отдельным IO worker layer.</p>
-              <div class="equation">API gateway → message bus → IO workers</div>
-            </div>
-            <div>
-              <div class="metric">
-                <div class="v">FastAPI</div>
-                <div class="l">stateless API, routing, transforms, auth</div>
-              </div>
-              <div class="metric">
-                <div class="v">Redis Streams</div>
-                <div class="l">request/response и notifications fan-in</div>
-              </div>
-              <div class="metric">
-                <div class="v">Rust workers</div>
-                <div class="l">stdio lifecycle, zero HTTP overhead, scale-to-zero</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Почему локальный runtime ломается в production</h2>
-          <div class="three-col">
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-exclamation-octagon"></i>stdio</div>
-              <p class="small">MCP subprocesses требуют долгоживущего IO и плохо дружат с классическим
-                request-per-worker подходом.</p>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-broadcast-pin"></i>Sticky sessions</div>
-              <p class="small">Stateful session model делает балансировку и failover сложнее, чем в обычном stateless
-                API.</p>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><i class="bi bi-clock-history"></i>Долгие вызовы</div>
-              <p class="small">Tool calls и notifications легко выбиваются из модели короткого HTTP request/response.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2>Message-driven architecture</h2>
-          <div class="flow3" style="margin-top:40px;">
-            <div class="flow-node python"><strong>FastAPI Gateway</strong><span>HTTP / SSE<br>Auth ·
-                Transforms<br>Stateless control plane</span></div>
-            <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
-            <div class="flow-node redis"><strong>Redis Streams</strong><span>mcpreq / mcpres<br>PubSub
-                notifications<br>request-response bus</span></div>
-            <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
-            <div class="flow-node rust"><strong>Rust Worker</strong><span>stdio IO<br>1 worker = 1
-                tenant/session<br>zero HTTP overhead</span></div>
-          </div>
-          <div class="callout cyan" style="margin-top:40px; text-align:center;">Gateway остаётся LLM-facing boundary, а
-            тяжёлый IO уезжает в отдельный data plane.</div>
-        </section>
-
-        <section>
-          <h2>Control plane / Message bus / Data plane</h2>
-          <table class="table-lite">
-            <thead>
-              <tr>
-                <th>Слой</th>
-                <th>Технология</th>
-                <th>Ответственность</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Control plane</strong></td>
-                <td><span class="accent-blue">FastAPI</span></td>
-                <td>Auth, routing, tool transforms, grouping, task orchestration, LLM-facing API.</td>
-              </tr>
-              <tr>
-                <td><strong>Message bus</strong></td>
-                <td><span class="accent-red">Redis Streams / PubSub</span></td>
-                <td>Request-response между gateway и worker, fan-in notifications, decoupling.</td>
-              </tr>
-              <tr>
-                <td><strong>Data plane</strong></td>
-                <td><span class="accent-orange">Rust</span></td>
-                <td>stdio subprocesses, lifecycle, crash recovery, scale-to-zero readiness.</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="equation">runtime → orchestration → distributed platform</div>
-        </section>
-
-        <section>
-          <h2>Финальная рамка</h2>
-          <div class="three-col">
-            <div class="panel">
-              <h3>Почему</h3>
-              <p class="small">Tools и MCP сделали внешний мир частью reasoning loop.</p>
-            </div>
-            <div class="panel">
-              <h3>На чём</h3>
-              <p class="small">Framework-слой вроде FastMCP ускоряет сборку MCP gateway и формирование surface.</p>
-            </div>
-            <div class="panel">
-              <h3>Как довести</h3>
-              <p class="small">Собственный runtime, SessionManager, tasks, policy, а затем — production architecture.
-              </p>
-            </div>
-          </div>
-          <div class="callout cyan" style="margin-top:20px;">Главная мысль доклада: MCP gateway — это не прокладка перед
-            tools, а архитектурный слой, который взрослеет вместе с системой.</div>
-        </section>
-
+<section>
+  <h2>MCP как стандартная поверхность</h2>
+  <div class="two-col">
+    <div class="quote-box">
+      <div class="panel-title"><i class="bi bi-diagram-3"></i>MCP</div>
+      <p class="small">MCP даёт общий протокол, через который AI-приложения могут работать с внешними системами предсказуемо и единообразно.</p>
+      <div class="primitive-list">
+        <div class="primitive"><div class="picon"><i class="bi bi-wrench-adjustable-circle"></i></div><div><h5>Tools</h5><p>Действия и API-вызовы, которые модель может инициировать.</p></div></div>
+        <div class="primitive"><div class="picon"><i class="bi bi-folder2-open"></i></div><div><h5>Resources</h5><p>Данные и документы, которые можно читать как контекст.</p></div></div>
+        <div class="primitive"><div class="picon"><i class="bi bi-card-text"></i></div><div><h5>Prompts</h5><p>Готовые шаблоны и сценарии взаимодействия.</p></div></div>
       </div>
     </div>
-
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-lightbulb"></i>Почему это важно</div>
+      <ul class="small">
+        <li>Модель перестаёт жить только внутри prompt.</li>
+        <li>Внешние системы получают единый способ интеграции.</li>
+        <li>Появляется пространство для gateway, policy и orchestration.</li>
+      </ul>
+      <div class="callout cyan">Именно здесь начинается разговор не просто про tools, а про MCP gateway как новый слой системы.</div>
+    </div>
   </div>
-  <!--  VMCP-GATEWAY -->
+</section>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/highlight.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11.6.0/plugin/mermaid/mermaid.js"></script>
+<section>
+  <h2>MCP architecture</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-person-workspace"></i>Роли</div>
+      <ul class="small">
+        <li><strong>Host</strong> — держит UX, consent, orchestration и policy boundary.</li>
+        <li><strong>Client</strong> — говорит по протоколу с сервером.</li>
+        <li><strong>Server</strong> — публикует tools, resources и prompts.</li>
+      </ul>
+      <div class="callout">Это уже не просто HTTP endpoint: тут есть роли, состояние и жизненный цикл взаимодействия.</div>
+    </div>
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-diagram-3"></i>Схема</div>
+      <div class="mermaid">
+        flowchart LR
+          H[Host]
+          C1[Client A]
+          C2[Client B]
+          S1[MCP Server 1]
+          S2[MCP Server 2]
+          H --> C1
+          H --> C2
+          C1 --> S1
+          C2 --> S2
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    Reveal.initialize({
-      hash: true,
-      slideNumber: 'c/t',
-      controls: true,
-      progress: true,
-      center: false,
-      width: 1440,
-      height: 810,
-      margin: 0.04,
-      mermaid: {
-        theme: 'dark'
-      },
 
-      plugins: [RevealHighlight, RevealNotes, RevealMermaid]
+<section>
+  <h2>Proxy vs MCP gateway</h2>
+  <div class="two-col">
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-x-octagon"></i>Обычный proxy</div>
+      <div class="mermaid">
+        flowchart LR
+          U[User] --> A[LLM App]
+          A --> P[Proxy]
+          P --> S1[Tool Server A]
+          P --> S2[Tool Server B]
+      </div>
+      <p class="small">Proxy умеет переслать запрос, но не понимает сессионную модель, capability negotiation и границы orchestration.</p>
+    </div>
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-check2-circle"></i>MCP gateway</div>
+      <div class="mermaid">
+        flowchart LR
+          U[User] --> H[Host]
+          H --> C1[Client A]
+          H --> C2[Client B]
+          C1 --> S1[MCP Server A]
+          C2 --> S2[MCP Server B]
+      </div>
+      <p class="small">MCP gateway понимает state, lifecycle, negotiated features и может собирать несколько downstream серверов в одну поверхность.</p>
+    </div>
+  </div>
+  <div class="callout red">Главная мысль: MCP gateway — не reverse proxy, а stateful application layer.</div>
+</section>
 
-    });
 
-    if (window.hljs) {
-      hljs.highlightAll();
+<section>
+  <h2>Транспорт и сессия</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-hdd-network"></i>Transport landscape</div>
+      <ul class="small">
+        <li>stdio — subprocess и прямой IO.</li>
+        <li>Streamable HTTP — JSON-RPC поверх HTTP.</li>
+        <li>SSE — server-to-client streaming и совместимость.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Что делает MCP сложнее</div>
+      <ul class="small">
+        <li>Session binding и lifecycle.</li>
+        <li>Initialize и capability negotiation.</li>
+        <li>Notifications, progress, logs.</li>
+        <li>Нужен boundary, который всё это понимает.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="equation">HTTP endpoint ≠ MCP gateway</div>
+</section>
+
+
+<section>
+  <h2>MCP gateway как фреймворк зрелости</h2>
+  <div class="three-col">
+    <div class="chipbox">
+      <div class="panel-title"><i class="bi bi-terminal"></i>Local</div>
+      <p class="small">Локальный runtime, stdio, in-memory state, быстрый developer loop.</p>
+      <div class="equation" style="font-size:.58em">stdio · dev · in-memory</div>
+    </div>
+    <div class="chipbox">
+      <div class="panel-title"><i class="bi bi-globe2"></i>Web</div>
+      <p class="small">HTTP endpoint, session mapping, streaming, auth boundary и policy.</p>
+      <div class="equation" style="font-size:.58em">session id · stream · auth</div>
+    </div>
+    <div class="chipbox">
+      <div class="panel-title"><i class="bi bi-boxes"></i>Kubernetes</div>
+      <p class="small">Shared state, tenant isolation, routing, operational control и scale-out.</p>
+      <div class="equation" style="font-size:.58em">multi-tenant · routing · ops</div>
+    </div>
+  </div>
+  <div class="callout cyan">Это удобная рамка доклада: один и тот же MCP gateway взрослеет от локального runtime до production-platform.</div>
+</section>
+
+
+<section>
+  <h2>Framework layer: FastMCP</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-lightning-charge"></i>Что даёт framework</div>
+      <ul class="small">
+        <li>Python primitives для MCP-приложений.</li>
+        <li>Серверы, proxy и gateway-паттерны.</li>
+        <li>Быстрый старт для experiments и внутренних платформ.</li>
+      </ul>
+      <div class="callout">Это важный слайд для зала: MCP gateway не нужно собирать с нуля на голом протоколе.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-code-square"></i>Минимальный FastMCP</div>
+      <pre><code class="language-python" data-trim>
+from fastmcp import FastMCP
+
+mcp = FastMCP("Demo")
+
+@mcp.tool
+def echo(text: str) -> str:
+    return text
+      </code></pre>
+      <p class="tiny">Framework-слой превращает MCP из спецификации в инженерный конструктор.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Framework layer: proxy и mount</h2>
+  <div class="two-col">
+    <div class="diagram-box">
+      <div class="panel-title"><i class="bi bi-diagram-3"></i>Идея</div>
+      <div class="node"><strong>Client</strong>MCP endpoint для IDE, desktop-клиента или внутреннего workflow.</div>
+      <div class="arrow">↓</div>
+      <div class="node context-node"><strong>FastMCP Proxy</strong>Собирает mounted servers в одну точку входа.</div>
+      <div class="arrow">↓</div>
+      <div class="node"><strong>echo / fs / jira / github</strong>Ниже могут быть разные backend MCP servers.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-code-slash"></i>Mounting</div>
+      <pre><code class="language-python" data-trim>
+from fastmcp import FastMCP
+from fastmcp.server import create_proxy
+
+mcp = FastMCP("proxy")
+mcp.mount(create_proxy("./echo_server.py"), namespace="echo")
+mcp.mount(create_proxy("./fs_server.py"), namespace="fs")
+
+if __name__ == "__main__":
+    mcp.run(transport="http", port=8000)
+      </code></pre>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Framework layer: tool transforms</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-box-arrow-right"></i>До</div>
+      <pre><code class="language-yaml" data-trim>
+name: verbose_internal_data_fetcher
+args:
+  - query
+  - include_metadata
+  - internal_limit
+  - debug
+      </code></pre>
+      <p class="tiny">Такой surface перегружает модель и раздувает контекст.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-stars"></i>После</div>
+      <pre><code class="language-yaml" data-trim>
+name: search
+args:
+  - query
+      </code></pre>
+      <p class="tiny">Gateway или framework может переименовать, скрыть аргументы и упростить контракт.</p>
+      <div class="equation">verbose_internal_data_fetcher → search</div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="hero">
+    <div class="box hero-box">
+      <div class="eyebrow">Implementation</div>
+      <h1><span class="accent-cyan">vmcp-gateway</span> на FastAPI</h1>
+      <div class="big">Теперь приземляем framework-рамку<br>в собственный runtime</div>
+      <p class="lead">Здесь начинается твоя инженерная часть: SessionManager, handshake, route table, notifications fan-in, tasks и transforms.</p>
+      <div class="equation">1 client session + N downstream sessions + 1 compact tool surface</div>
+    </div>
+    <div>
+      <div class="metric"><div class="v">Session state</div><div class="l">capabilities, route table, active tasks</div></div>
+      <div class="metric"><div class="v">Task layer</div><div class="l">workflow-level action поверх primitive tools</div></div>
+      <div class="metric"><div class="v">Transforms</div><div class="l">управление agent-facing surface</div></div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Компоненты MCP gateway</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-boxes"></i>Состав</div>
+      <div class="step"><div class="step-title">Server Registry</div><div class="step-desc">upstream MCP servers: jira, github, slack.</div></div>
+      <div class="step"><div class="step-title">SessionManager</div><div class="step-desc">client session, downstream sessions, routing table, active tasks.</div></div>
+      <div class="step"><div class="step-title">ToolCatalog</div><div class="step-desc">visible tools, namespacing, transforms, capability filtering.</div></div>
+      <div class="step"><div class="step-title">TaskRunner</div><div class="step-desc">workflow-level operations внутри gateway.</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-file-earmark-code"></i>Bootstrap</div>
+      <pre><code class="language-python" data-trim>
+app = FastAPI(title="vmcp-gateway")
+
+@app.on_event("startup")
+async def startup():
+    app.state.registry = {
+        "jira": LocalMcpServer("http://localhost:9001/mcp"),
+        "github": LocalMcpServer("http://localhost:9002/mcp"),
+        "slack": LocalMcpServer("http://localhost:9003/mcp"),
     }
-  </script>
-</body>
+    app.state.sessions = {}
+    app.state.task_runner = TaskRunner()
+      </code></pre>
+    </div>
+  </div>
+</section>
 
+
+<section>
+  <h2>SessionManager</h2>
+  <div class="bottom-grid">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-diagram-3"></i>GatewaySession</div>
+      <pre><code class="language-python" data-trim>
+class GatewaySession:
+    client_session_id
+    client_capabilities
+    downstream
+    tool_to_server
+    visible_tools
+    notifications_buffer
+    active_tasks
+      </code></pre>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-database"></i>Зачем это нужно</div>
+      <ul class="small">
+        <li>Хранить downstream session ids и negotiated state.</li>
+        <li>Держать route table для tool calls.</li>
+        <li>Буферизовать notifications и task state.</li>
+        <li>Быть единым местом правды для runtime.</li>
+      </ul>
+      <div class="callout red">Вот здесь MCP gateway окончательно перестаёт быть прокси и становится stateful application layer.</div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Initialize: как собирается единый мир</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Handshake</div>
+      <pre><code class="language-python" data-trim>
+async def initialize(session_id, client_caps):
+    gw = GatewaySession(...)
+    for name, server in registry.items():
+        ds = await server.initialize(client_caps)
+        gw.downstream[name] = ds
+        for tool in ds.tools:
+            public = f"{name}.{tool.name}"
+            gw.tool_to_server[public] = name
+            gw.visible_tools.append({...})
+    sessions[session_id] = gw
+    return {"tools": gw.visible_tools}
+      </code></pre>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-signpost-split"></i>Что появляется после initialize</div>
+      <ul class="small">
+        <li>N downstream connections вместо одной локальной догадки.</li>
+        <li>Namespace вида `jira.create_issue`.</li>
+        <li>Capability snapshot на всю клиентскую сессию.</li>
+        <li>Единый tool catalog для клиента.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Route table вместо if-else ада</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-map"></i>Идея</div>
+      <ul class="small">
+        <li>Имена инструментов уже подготовлены при initialize.</li>
+        <li>По tool name сразу находим нужный server.</li>
+        <li>Клиент не знает и не должен знать, где реально живёт tool.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-arrow-left-right"></i>Вызов</div>
+      <pre><code class="language-python" data-trim>
+async def call_tool(session_id, tool_name, args):
+    gw = self.get(session_id)
+    server_name = gw.tool_to_server[tool_name]
+    downstream = gw.downstream[server_name]
+    raw_name = tool_name.split('.', 1)[1]
+    return await downstream.call_tool(raw_name, args)
+      </code></pre>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Notifications fan-in</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-broadcast"></i>Что собираем</div>
+      <ul class="small">
+        <li>Progress events.</li>
+        <li>Logging messages.</li>
+        <li>Domain notifications от downstream серверов.</li>
+        <li>Единый поток событий для клиента.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-code"></i>Модель</div>
+      <pre><code class="language-python" data-trim>
+for server_name, downstream in gw.downstream.items():
+    asyncio.create_task(forward(server_name, downstream))
+
+wrapped = {
+  "source": server_name,
+  "event": event,
+}
+      </code></pre>
+      <div class="callout orange">Fan-in событий — одна из самых недооценённых причин, почему MCP gateway полезнее простого proxy.</div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Task layer: от primitive tools к workflow</h2>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-list-task"></i>TaskRunner</div>
+      <pre><code class="language-text" data-trim>
+jira.create_issue
+→ github.create_pr
+→ slack.send_message
+      </code></pre>
+      <p class="small">Task поднимает уровень абстракции: агент видит действие верхнего уровня, а не набор низкоуровневых шагов.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-activity"></i>Lifecycle</div>
+      <pre><code class="language-text" data-trim>
+task_id
+status = working
+...
+status = completed | failed
+      </code></pre>
+      <p class="small">Task status, notifications и result дают наблюдаемость, которой не хватает обычному набору tools.</p>
+    </div>
+  </div>
+  <div class="equation">Task = orchestration layer внутри MCP gateway</div>
+</section>
+
+
+<section>
+  <h2>Transforms, grouping и policy</h2>
+  <div class="three-col">
+    <div class="mini panel">
+      <h3>Transforms</h3>
+      <p class="small">Переименование, скрытие args, defaults, упрощение schema и description.</p>
+    </div>
+    <div class="mini panel">
+      <h3>Grouping</h3>
+      <p class="small">Issue Management, Repo &amp; PR, Messaging — компактный каталог для агента.</p>
+    </div>
+    <div class="mini panel">
+      <h3>Policy</h3>
+      <p class="small">Capability filtering и скрытие destructive operations по claims / scopes.</p>
+    </div>
+  </div>
+  <div class="callout cyan">Это и есть product-facing сторона MCP gateway: не только вызвать tool, но и сформировать правильную поверхность для модели.</div>
+</section>
+
+
+<section>
+  <div class="hero">
+    <div class="box hero-box">
+      <div class="eyebrow">Production</div>
+      <h1>Event-Driven <span class="accent-cyan">MCP Gateway</span></h1>
+      <div class="big">FastAPI, <span class="accent-red">Redis Streams</span> и <span class="accent-orange">Rust</span></div>
+      <p class="lead">Здесь локальный in-memory runtime эволюционирует в production-grade distributed system с message bus и отдельным IO worker layer.</p>
+      <div class="equation">API gateway → message bus → IO workers</div>
+    </div>
+    <div>
+      <div class="metric"><div class="v">FastAPI</div><div class="l">stateless API, routing, transforms, auth</div></div>
+      <div class="metric"><div class="v">Redis Streams</div><div class="l">request/response и notifications fan-in</div></div>
+      <div class="metric"><div class="v">Rust workers</div><div class="l">stdio lifecycle, zero HTTP overhead, scale-to-zero</div></div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Почему локальный runtime ломается в production</h2>
+  <div class="three-col">
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-exclamation-octagon"></i>stdio</div>
+      <p class="small">MCP subprocesses требуют долгоживущего IO и плохо дружат с классическим request-per-worker подходом.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-broadcast-pin"></i>Sticky sessions</div>
+      <p class="small">Stateful session model делает балансировку и failover сложнее, чем в обычном stateless API.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><i class="bi bi-clock-history"></i>Долгие вызовы</div>
+      <p class="small">Tool calls и notifications легко выбиваются из модели короткого HTTP request/response.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Message-driven architecture</h2>
+  <div class="flow3" style="margin-top:40px;">
+    <div class="flow-node python"><strong>FastAPI Gateway</strong><span>HTTP / SSE<br>Auth · Transforms<br>Stateless control plane</span></div>
+    <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
+    <div class="flow-node redis"><strong>Redis Streams</strong><span>mcpreq / mcpres<br>PubSub notifications<br>request-response bus</span></div>
+    <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
+    <div class="flow-node rust"><strong>Rust Worker</strong><span>stdio IO<br>1 worker = 1 tenant/session<br>zero HTTP overhead</span></div>
+  </div>
+  <div class="callout cyan" style="margin-top:40px; text-align:center;">Gateway остаётся LLM-facing boundary, а тяжёлый IO уезжает в отдельный data plane.</div>
+</section>
+
+
+<section>
+  <h2>Control plane / Message bus / Data plane</h2>
+  <table class="table-lite">
+    <thead>
+      <tr><th>Слой</th><th>Технология</th><th>Ответственность</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Control plane</strong></td><td><span class="accent-blue">FastAPI</span></td><td>Auth, routing, tool transforms, grouping, task orchestration, LLM-facing API.</td></tr>
+      <tr><td><strong>Message bus</strong></td><td><span class="accent-red">Redis Streams / PubSub</span></td><td>Request-response между gateway и worker, fan-in notifications, decoupling.</td></tr>
+      <tr><td><strong>Data plane</strong></td><td><span class="accent-orange">Rust</span></td><td>stdio subprocesses, lifecycle, crash recovery, scale-to-zero readiness.</td></tr>
+    </tbody>
+  </table>
+  <div class="equation">runtime → orchestration → distributed platform</div>
+</section>
+
+
+<section>
+  <h2>Финальная рамка</h2>
+  <div class="three-col">
+    <div class="panel"><h3>Почему</h3><p class="small">Tools и MCP сделали внешний мир частью reasoning loop.</p></div>
+    <div class="panel"><h3>На чём</h3><p class="small">Framework-слой вроде FastMCP ускоряет сборку MCP gateway и формирование surface.</p></div>
+    <div class="panel"><h3>Как довести</h3><p class="small">Собственный runtime, SessionManager, tasks, policy, а затем — production architecture.</p></div>
+  </div>
+  <div class="callout cyan" style="margin-top:20px;">Главная мысль доклада: MCP gateway — это не прокладка перед tools, а архитектурный слой, который взрослеет вместе с системой.</div>
+</section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<!-- Подключаем плагин Highlight.js -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: false, 
+    theme: 'dark',
+    themeVariables: {
+      fontSize: '28px', /* Увеличиваем текст внутри узлов */
+      fontFamily: 'Inter, system-ui, sans-serif'
+    }
+  });
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    width: 1440,
+    height: 810,
+    margin: 0.04,
+    // Активируем плагин подсветки
+    plugins: [ RevealHighlight ]
+  }).then(() => {
+    mermaid.run({ querySelector: '.mermaid' });
+  });
+</script>
+</body>
 </html>
