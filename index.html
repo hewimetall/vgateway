@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,50 +14,91 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/styles/github-dark.min.css" />
 
   <style>
-    :root{
-      --bg:#08111f;
-      --bg2:#0d1b2a;
-      --panel:#111c2e;
-      --panel-2:#14233a;
-      --text:#eaf2ff;
-      --muted:#9db0cc;
-      --blue:#58a6ff;
-      --cyan:#5eead4;
-      --violet:#a78bfa;
-      --green:#34d399;
-      --yellow:#fbbf24;
-      --red:#f87171;
-      --border:rgba(255,255,255,.10);
-      --shadow:0 20px 60px rgba(0,0,0,.35);
+    :root {
+      --bg: #08111f;
+      --bg2: #0d1b2a;
+      --panel: #111c2e;
+      --panel-2: #14233a;
+      --text: #eaf2ff;
+      --muted: #9db0cc;
+      --blue: #58a6ff;
+      --cyan: #5eead4;
+      --violet: #a78bfa;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --border: rgba(255, 255, 255, .10);
+      --shadow: 0 20px 60px rgba(0, 0, 0, .35);
     }
 
-    html, body {
+    html,
+    body {
       background:
-        radial-gradient(circle at top left, rgba(88,166,255,.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(167,139,250,.14), transparent 24%),
+        radial-gradient(circle at top left, rgba(88, 166, 255, .18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(167, 139, 250, .14), transparent 24%),
         linear-gradient(135deg, var(--bg), var(--bg2));
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
 
-    .reveal { font-size: 34px; }
-    .reveal .slides section { text-align: left; padding: 10px 20px; }
-    .reveal h1, .reveal h2, .reveal h3 {
+    .reveal {
+      font-size: 34px;
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 10px 20px;
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3 {
       text-transform: none;
       letter-spacing: -0.02em;
       color: #f7fbff;
       margin-bottom: 0.35em;
     }
-    .reveal h1 { font-size: 2.15em; }
-    .reveal h2 { font-size: 1.6em; }
-    .reveal h3 { font-size: 1.0em; color: var(--cyan); }
-    .reveal p, .reveal li { color: var(--text); line-height: 1.35; }
-    .reveal ul { margin-left: 1.1em; }
-    .reveal li { margin-bottom: 0.3em; }
 
-    .muted { color: var(--muted); }
-    .small { font-size: 0.58em; line-height: 1.35; }
-    .tiny { font-size: 0.48em; line-height: 1.35; }
+    .reveal h1 {
+      font-size: 2.15em;
+    }
+
+    .reveal h2 {
+      font-size: 1.6em;
+    }
+
+    .reveal h3 {
+      font-size: 1.0em;
+      color: var(--cyan);
+    }
+
+    .reveal p,
+    .reveal li {
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .reveal ul {
+      margin-left: 1.1em;
+    }
+
+    .reveal li {
+      margin-bottom: 0.3em;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 0.58em;
+      line-height: 1.35;
+    }
+
+    .tiny {
+      font-size: 0.48em;
+      line-height: 1.35;
+    }
 
     .hero {
       min-height: 620px;
@@ -66,14 +108,23 @@
       align-items: center;
     }
 
-    .hero-box, .panel, .timeline-card, .metric, .callout, .quote-box, .diagram-box, .bottom-card {
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    .hero-box,
+    .panel,
+    .timeline-card,
+    .metric,
+    .callout,
+    .quote-box,
+    .diagram-box,
+    .bottom-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
       border: 1px solid var(--border);
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
 
-    .hero-box { padding: 30px 34px; }
+    .hero-box {
+      padding: 30px 34px;
+    }
 
     .eyebrow {
       display: inline-block;
@@ -97,12 +148,32 @@
       line-height: 1.45;
     }
 
-    .hero-right { display: grid; gap: 18px; }
+    .hero-right {
+      display: grid;
+      gap: 18px;
+    }
 
-    .metric { padding: 20px 22px; }
-    .metric .icon { font-size: 1.2em; color: var(--blue); margin-bottom: 8px; }
-    .metric .value { font-size: 1.1em; font-weight: 800; margin-bottom: 6px; }
-    .metric .label { font-size: 0.52em; color: var(--muted); line-height: 1.35; }
+    .metric {
+      padding: 20px 22px;
+    }
+
+    .metric .icon {
+      font-size: 1.2em;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .metric .value {
+      font-size: 1.1em;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .metric .label {
+      font-size: 0.52em;
+      color: var(--muted);
+      line-height: 1.35;
+    }
 
     .two-col {
       display: grid;
@@ -117,13 +188,13 @@
     }
 
     .panel.align {
-      border-color: rgba(94,234,212,.28);
-      box-shadow: 0 20px 60px rgba(94,234,212,.08);
+      border-color: rgba(94, 234, 212, .28);
+      box-shadow: 0 20px 60px rgba(94, 234, 212, .08);
     }
 
     .panel.augment {
-      border-color: rgba(167,139,250,.28);
-      box-shadow: 0 20px 60px rgba(167,139,250,.08);
+      border-color: rgba(167, 139, 250, .28);
+      box-shadow: 0 20px 60px rgba(167, 139, 250, .08);
     }
 
     .panel-title {
@@ -135,7 +206,9 @@
       margin-bottom: 18px;
     }
 
-    .panel-title i { font-size: 1.05em; }
+    .panel-title i {
+      font-size: 1.05em;
+    }
 
     .chip {
       display: inline-block;
@@ -146,15 +219,17 @@
       letter-spacing: .04em;
       margin-bottom: 14px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
+      background: rgba(255, 255, 255, .04);
     }
 
     .step {
       padding: 14px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-top: 1px solid rgba(255, 255, 255, .08);
     }
 
-    .step:first-of-type { border-top: none; }
+    .step:first-of-type {
+      border-top: none;
+    }
 
     .step-year {
       font-size: 0.5em;
@@ -181,7 +256,7 @@
       color: #dff7f3;
       padding: 14px 18px;
       border-left: 4px solid var(--cyan);
-      background: rgba(94,234,212,.08);
+      background: rgba(94, 234, 212, .08);
       border-radius: 14px;
     }
 
@@ -224,14 +299,25 @@
       font-weight: 800;
       color: white;
       background: linear-gradient(135deg, var(--blue), var(--violet));
-      border: 4px solid rgba(8,17,31,.9);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      border: 4px solid rgba(8, 17, 31, .9);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
     }
 
-    .y2021 { top: 12%; }
-    .y2022 { top: 34%; }
-    .y2023 { top: 62%; }
-    .y2024 { top: 88%; }
+    .y2021 {
+      top: 12%;
+    }
+
+    .y2022 {
+      top: 34%;
+    }
+
+    .y2023 {
+      top: 62%;
+    }
+
+    .y2024 {
+      top: 88%;
+    }
 
     .timeline-card {
       padding: 18px 20px;
@@ -255,8 +341,8 @@
       margin-top: 16px;
       padding: 18px 22px;
       border-radius: 18px;
-      background: linear-gradient(90deg, rgba(88,166,255,.15), rgba(167,139,250,.15));
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(90deg, rgba(88, 166, 255, .15), rgba(167, 139, 250, .15));
+      border: 1px solid rgba(255, 255, 255, .12);
       font-size: 0.66em;
       font-weight: 700;
     }
@@ -269,20 +355,23 @@
       margin-top: 24px;
     }
 
-    .equation-side, .equation-result {
+    .equation-side,
+    .equation-result {
       padding: 24px;
       border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
       border: 1px solid var(--border);
       min-height: 210px;
     }
 
-    .equation-side h4, .equation-result h4 {
+    .equation-side h4,
+    .equation-result h4 {
       font-size: 0.7em;
       margin-bottom: 12px;
     }
 
-    .equation-side ul, .equation-result ul {
+    .equation-side ul,
+    .equation-result ul {
       font-size: 0.54em;
       color: var(--muted);
       line-height: 1.45;
@@ -305,7 +394,7 @@
     .zoo-item {
       padding: 18px;
       border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
       border: 1px solid var(--border);
       min-height: 165px;
     }
@@ -333,7 +422,7 @@
       font-size: 0.62em;
       line-height: 1.4;
       border-left: 5px solid var(--red);
-      background: rgba(248,113,113,.08);
+      background: rgba(248, 113, 113, .08);
     }
 
     .mcp-grid {
@@ -344,22 +433,26 @@
       align-items: start;
     }
 
-    .quote-box { padding: 22px 24px; }
+    .quote-box {
+      padding: 22px 24px;
+    }
 
     .proto-box {
       padding: 22px 24px;
       border-radius: 24px;
-      background: linear-gradient(180deg, rgba(88,166,255,.08), rgba(167,139,250,.08));
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(88, 166, 255, .08), rgba(167, 139, 250, .08));
+      border: 1px solid rgba(255, 255, 255, .12);
       box-shadow: var(--shadow);
     }
 
-    .proto-box h4, .quote-box h4 {
+    .proto-box h4,
+    .quote-box h4 {
       font-size: 0.72em;
       margin-bottom: 12px;
     }
 
-    .proto-box p, .quote-box p {
+    .proto-box p,
+    .quote-box p {
       font-size: 0.52em;
       color: var(--muted);
       line-height: 1.42;
@@ -379,8 +472,8 @@
       align-items: start;
       padding: 14px;
       border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
     }
 
     .primitive .picon {
@@ -390,7 +483,7 @@
       display: grid;
       place-items: center;
       font-size: 1.1em;
-      background: rgba(88,166,255,.18);
+      background: rgba(88, 166, 255, .18);
       color: #fff;
     }
 
@@ -412,8 +505,8 @@
       color: #eef7ff;
       padding: 14px 18px;
       border-radius: 16px;
-      background: linear-gradient(90deg, rgba(94,234,212,.12), rgba(88,166,255,.12));
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(90deg, rgba(94, 234, 212, .12), rgba(88, 166, 255, .12));
+      border: 1px solid rgba(255, 255, 255, .12);
     }
 
     .diagram-wrap {
@@ -430,13 +523,13 @@
     }
 
     .diagram-box.rag {
-      border-color: rgba(94,234,212,.26);
-      box-shadow: 0 20px 60px rgba(94,234,212,.08);
+      border-color: rgba(94, 234, 212, .26);
+      box-shadow: 0 20px 60px rgba(94, 234, 212, .08);
     }
 
     .diagram-box.tools {
-      border-color: rgba(88,166,255,.26);
-      box-shadow: 0 20px 60px rgba(88,166,255,.08);
+      border-color: rgba(88, 166, 255, .26);
+      box-shadow: 0 20px 60px rgba(88, 166, 255, .08);
     }
 
     .diagram-title {
@@ -457,8 +550,8 @@
     .node {
       padding: 14px 16px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
       font-size: 0.5em;
       line-height: 1.35;
     }
@@ -478,13 +571,13 @@
     }
 
     .context-node {
-      background: linear-gradient(180deg, rgba(251,191,36,.14), rgba(251,191,36,.08));
-      border: 1px solid rgba(251,191,36,.28);
+      background: linear-gradient(180deg, rgba(251, 191, 36, .14), rgba(251, 191, 36, .08));
+      border: 1px solid rgba(251, 191, 36, .28);
     }
 
     .result-node {
-      background: linear-gradient(180deg, rgba(88,166,255,.12), rgba(88,166,255,.06));
-      border: 1px solid rgba(88,166,255,.22);
+      background: linear-gradient(180deg, rgba(88, 166, 255, .12), rgba(88, 166, 255, .06));
+      border: 1px solid rgba(88, 166, 255, .22);
     }
 
     .bottom-grid {
@@ -504,7 +597,8 @@
       margin-bottom: 8px;
     }
 
-    .bottom-card p, .bottom-card li {
+    .bottom-card p,
+    .bottom-card li {
       font-size: 0.48em;
       color: var(--muted);
     }
@@ -516,8 +610,8 @@
       text-align: center;
       padding: 14px 12px;
       border-radius: 16px;
-      background: linear-gradient(90deg, rgba(94,234,212,.12), rgba(88,166,255,.12));
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(90deg, rgba(94, 234, 212, .12), rgba(88, 166, 255, .12));
+      border: 1px solid rgba(255, 255, 255, .12);
       margin-top: 10px;
     }
 
@@ -536,2015 +630,819 @@
       height: 6px;
     }
 
-    .reveal .controls { color: var(--blue); }
+    .reveal .controls {
+      color: var(--blue);
+    }
 
-    .accent-blue { color: var(--blue); }
-    .accent-cyan { color: var(--cyan); }
-    .accent-violet { color: var(--violet); }
-    .accent-yellow { color: var(--yellow); }
-    .accent-red { color: var(--red); }
+    .accent-blue {
+      color: var(--blue);
+    }
+
+    .accent-cyan {
+      color: var(--cyan);
+    }
+
+    .accent-violet {
+      color: var(--violet);
+    }
+
+    .accent-yellow {
+      color: var(--yellow);
+    }
+
+    .accent-red {
+      color: var(--red);
+    }
 
     @media (max-width: 1200px) {
-      .hero, .two-col, .timeline, .mcp-grid, .zoo-grid, .equation-box, .diagram-wrap, .bottom-grid {
+
+      .hero,
+      .two-col,
+      .timeline,
+      .mcp-grid,
+      .zoo-grid,
+      .equation-box,
+      .diagram-wrap,
+      .bottom-grid {
         grid-template-columns: 1fr !important;
       }
-      .timeline-center { display: none; }
-      .panel, .hero-box, .diagram-box { min-height: auto; }
+
+      .timeline-center {
+        display: none;
+      }
+
+      .panel,
+      .hero-box,
+      .diagram-box {
+        min-height: auto;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="reveal">
-    <div class="slides">
-<section>
-  <div class="hero">
-    <div class="hero-box">
-      <div class="eyebrow">Code Fest 2026 · Проектирование</div>
-      <h1>MCP Gateway</h1>
-      <div class="big-question">
-        Как перестать тонуть в <span class="accent-cyan">tools</span><br/>
-        и собрать нормальный <span class="accent-blue">AI gateway</span>
-      </div>
-      <p class="lead">
-        Это доклад про эволюцию AI-агентов: от LLM и function calling
-        к MCP, а затем — к gateway-слою, который умеет агрегировать
-        серверы, сжимать контекст и делать интеграции управляемыми.
-      </p>
-    </div>
+    <div class="reveal">
+      <div class="slides">
 
-    <div class="hero-right">
-      <div class="metric">
-        <div class="icon"><i class="bi bi-clock-history"></i></div>
-        <div class="value">40 минут</div>
-        <div class="label">35 минут доклад + 5 минут Q&amp;A</div>
-      </div>
-
-      <div class="metric">
-        <div class="icon"><i class="bi bi-people"></i></div>
-        <div class="value">Для инженеров и архитекторов</div>
-        <div class="label">Backend, DevOps, архитекторы, AI/ML инженеры</div>
-      </div>
-
-      <div class="metric">
-        <div class="icon"><i class="bi bi-diagram-3"></i></div>
-        <div class="value">Что разберём</div>
-        <div class="label">
-          MCP как stateful-протокол, перегрузку контекста агента,
-          vmcp-gateway, FastMCP-прототип и готовую схему с mcp-mesh
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-line">
-    От «у модели есть tools» к «у платформы есть архитектура для работы с ними».
-  </div>
-</section>
-
-<section>
-  <div class="two-col">
-      <div class="panel-title"><i class="bi bi-person-badge"></i> Обо мне</div>
-      <div class="chip">Подставь свои данные</div>
-
-      <div class="step">
-        <div class="step-title">[Имя Фамилия]</div>
-        <div class="step-desc">[Роль / компания / команда]</div>
-      </div>
-
-
-      <div class="step">
-        <div class="step-title">С чем работал</div>
-        <div class="step-desc">
-          Интеграции между сервисами, tool-based workflow, платформенные API, saas.
-        </div>
-      </div>
-
-  </div>
-</section>
-      <section>
-        <div class="hero">
-          <div class="hero-box">
-            <div class="eyebrow">От Base LLM к MCP</div>
-            <h1>Почему одной “умной” модели <span class="accent-cyan">недостаточно</span></h1>
-            <div class="big-question">
-              История не про “LLM стали умнее”.<br/>
-              История про то, как они стали <span class="accent-blue">полезными</span>.
+        <section>
+          <div class="hero">
+            <div class="box hero-box">
+              <div class="eyebrow">Code Fest</div>
+              <h1><span class="accent-cyan">MCP Gateway</span></h1>
+              <div class="big">Когда tools перестают быть интеграцией<br>и становятся архитектурой</div>
+              <p class="lead">История от LLM и function calling к MCP, затем к framework-слою, а потом — к собственному
+                gateway и production-архитектуре.</p>
+              <div class="equation">tools → MCP → framework → gateway → platform</div>
             </div>
-            <p class="lead">
-              Сначала индустрия учила модели следовать инструкциям и человеческим предпочтениям.
-              Параллельно она учила их читать внешний контекст и вызывать инструменты.
-              MCP появляется уже после этого — как стандартный способ подключать всё это без зоопарка интеграций.
-            </p>
-          </div>
-
-          <div class="hero-right">
-            <div class="metric">
-              <div class="icon"><i class="bi bi-signpost-split"></i></div>
-              <div class="value">2 параллельных трека</div>
-              <div class="label">Alignment улучшал поведение модели, augmentation расширял её возможности через контекст и инструменты.</div>
-            </div>
-            <div class="metric">
-              <div class="icon"><i class="bi bi-tools"></i></div>
-              <div class="value">Схождение в 2023</div>
-              <div class="label">Когда у агентов появились tools, стало ясно: проблема уже не только в модели, но и в способе интеграции.</div>
-            </div>
-            <div class="metric">
-              <div class="icon"><i class="bi bi-diagram-3"></i></div>
-              <div class="value">Следующий шаг — протокол</div>
-              <div class="label">MCP стандартизирует подключение инструментов и источников данных, а не изобретает новый тип агента.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sources">
-          Источники: Anthropic, “Introducing the Model Context Protocol”, 2024 [web:3]; OpenAI, “Function calling and other API updates”, 2023 [web:15]; материалы пользователя [file:1].
-        </div>
-      </section>
-
-      <section>
-        <h2>Два трека шли <span class="accent-yellow">параллельно</span></h2>
-        <div class="two-col">
-          <div class="panel align">
-            <div class="panel-title"><i class="bi bi-bullseye"></i> Alignment track</div>
-            <div class="chip">Цель: сделать модель управляемой</div>
-
-            <div class="step">
-              <div class="step-year">2021</div>
-              <div class="step-title">FLAN / T0</div>
-              <div class="step-desc">
-                Instruction tuning показал, что модель можно дообучить так, чтобы она заметно лучше следовала инструкциям даже в zero-shot режиме.
+            <div>
+              <div class="metric">
+                <div class="v">40 минут</div>
+                <div class="l">быстрый темп, много визуальных слайдов</div>
               </div>
-            </div>
-
-            <div class="step">
-              <div class="step-year">2022</div>
-              <div class="step-title">InstructGPT</div>
-              <div class="step-desc">
-                SFT → reward model → PPO. Ключевая мысль: base model ещё не равна useful model.
-                Сначала модель учат делать “как в хороших примерах”, затем оптимизируют под то, что люди предпочитают.
+              <div class="metric">
+                <div class="v">3 акта</div>
+                <div class="l">почему, на чём строить, как довести до production</div>
               </div>
-            </div>
-
-            <div class="step">
-              <div class="step-year">Суть</div>
-              <div class="step-title">SFT учит следовать инструкции</div>
-              <div class="step-desc">
-                RLHF не “включает этику магически”; он сдвигает поведение в сторону human preferences и вводит trade-off между helpfulness и harmlessness.
+              <div class="metric">
+                <div class="v">1 герой</div>
+                <div class="l">в центре не протокол сам по себе, а MCP gateway</div>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="panel augment">
-            <div class="panel-title"><i class="bi bi-plug"></i> Augmentation track</div>
-            <div class="chip">Цель: дать модели внешний мир</div>
-
-            <div class="step">
-              <div class="step-year">2020</div>
-              <div class="step-title">RAG</div>
-              <div class="step-desc">
-                Вместо постоянного дообучения нужный контекст подаётся извне: документы, базы, знания компании, свежие данные.
+        <section>
+          <div class="hero">
+            <div class="box hero-box">
+              <div class="eyebrow">Base LLM → MCP</div>
+              <h1>От LLM к <span class="accent-cyan">tools</span>, а затем к <span class="accent-blue">MCP</span></h1>
+              <div class="big">LLM стали полезнее не только потому, что лучше думают,<br>но и потому, что умеют работать
+                с внешним миром</div>
+              <p class="lead">Это и есть вход в тему: сначала появились useful models, потом context tools, а затем
+                возникла потребность стандартизировать эти взаимодействия.</p>
+            </div>
+            <div>
+              <div class="metric">
+                <div class="v">2 трека</div>
+                <div class="l">alignment и augmentation</div>
               </div>
-            </div>
-
-            <div class="step">
-              <div class="step-year">2022</div>
-              <div class="step-title">ReAct</div>
-              <div class="step-desc">
-                Reasoning и acting складываются в один цикл: модель не только “думает”, но и делает шаги во внешнем мире.
+              <div class="metric">
+                <div class="v">2023</div>
+                <div class="l">tools стали массовым паттерном</div>
               </div>
-            </div>
-
-            <div class="step">
-              <div class="step-year">2023</div>
-              <div class="step-title">Function Calling</div>
-              <div class="step-desc">
-                Появляется стандартный способ передавать модели описание функций и получать структурированный вызов с аргументами.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="center-note">
-          Главное: это не лестница “сначала alignment, потом augmentation”. Это два независимых потока, которые в какой-то момент просто сошлись.
-        </div>
-
-        <div class="sources">
-          Источники: OpenAI, “Function calling and other API updates”, 2023 [web:15]; Ouyang et al., InstructGPT, 2022 [web:17]; материалы пользователя [file:1].
-        </div>
-      </section>
-
-      <section>
-        <h2>Как это сошлось во времени</h2>
-
-        <div class="timeline">
-          <div>
-            <div class="timeline-card">
-              <h4>Alignment: instruction following</h4>
-              <p>Модель становится не просто генератором текста, а системой, которая лучше понимает формат задачи и ограничения ответа.</p>
-            </div>
-
-            <div class="timeline-card">
-              <h4>Alignment: RLHF</h4>
-              <p>Поведение смещается в сторону человеческих предпочтений: что полезнее, безопаснее и ожидаемее для пользователя.</p>
-            </div>
-
-            <div class="timeline-card">
-              <h4>Схождение</h4>
-              <p>Когда модель уже умеет слушаться, ей можно доверить решение: “какой инструмент вызвать и когда”.</p>
-            </div>
-          </div>
-
-          <div class="timeline-center">
-            <div class="year-dot y2021">2021</div>
-            <div class="year-dot y2022">2022</div>
-            <div class="year-dot y2023">2023</div>
-            <div class="year-dot y2024">2024</div>
-          </div>
-
-          <div>
-            <div class="timeline-card">
-              <h4>Augmentation: RAG</h4>
-              <p>Контекст начинает приходить снаружи, а не только из весов модели.</p>
-            </div>
-
-            <div class="timeline-card">
-              <h4>Augmentation: ReAct</h4>
-              <p>LLM получает loop: подумал → сделал действие → прочитал результат → продолжил рассуждение.</p>
-            </div>
-
-            <div class="timeline-card">
-              <h4>Augmentation: function calling</h4>
-              <p>Инструменты становятся не ad-hoc трюком, а понятным интерфейсом между моделью и внешними API.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="merge-banner">
-          2023 — поворотный момент: LLM уже достаточно управляемы, чтобы их можно было подключать к действиям и данным.
-        </div>
-
-        <div class="sources">
-          Источники: OpenAI, “Function calling and other API updates”, 2023 [web:15]; Anthropic, “Introducing the Model Context Protocol”, 2024 [web:3]; материалы пользователя [file:1].
-        </div>
-      </section>
-
-      <section>
-        <h2>Два способа расширить модель: <span class="accent-cyan">RAG</span> и <span class="accent-blue">Tools</span></h2>
-
-        <div class="diagram-wrap">
-          <div class="diagram-box rag">
-            <div class="diagram-title"><i class="bi bi-database-add"></i> RAG: докидываем знания</div>
-            <div class="flow">
-              <div class="node">
-                <strong>1. User query</strong>
-                Пользователь задаёт вопрос, но в весах модели может не быть нужного знания или оно устарело.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node">
-                <strong>2. Retrieval</strong>
-                Система ищет релевантные документы, чанки, записи из БД или внутренней knowledge base.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node context-node">
-                <strong>3. Retrieved context</strong>
-                Найденные фрагменты приклеиваются к промпту как дополнительный контекст.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node result-node">
-                <strong>4. LLM answer</strong>
-                Модель отвечает, опираясь на user intent + injected context.
+              <div class="metric">
+                <div class="v">2024</div>
+                <div class="l">MCP оформил общий протокол</div>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="diagram-box tools">
-            <div class="diagram-title"><i class="bi bi-wrench-adjustable-circle"></i> Tools: докидываем действие и результат</div>
-            <div class="flow">
-              <div class="node">
-                <strong>1. User query</strong>
-                Пользователь просит не только объяснить, но и что-то сделать или получить внешние данные.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node">
-                <strong>2. Tool schema</strong>
-                В запрос модели заранее передаётся описание доступных инструментов: что они умеют и какие аргументы ждут.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node">
-                <strong>3. Tool call → execution</strong>
-                Модель выбирает функцию, приложение исполняет её снаружи и получает результат.
-              </div>
-              <div class="arrow">↓</div>
-              <div class="node context-node">
-                <strong>4. Tool result in context</strong>
-                Результат вызова возвращается в следующий ход как новый контекст для модели.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bottom-grid">
-          <div class="bottom-card">
-            <h4>Общая мысль</h4>
-            <p>
-              И RAG, и Tools — это по сути context augmentation. В одном случае в контекст добавляются найденные знания, в другом — описание инструментов и затем результат их выполнения.
-            </p>
-            <div class="mini-equation">
-              user query + extra context → reasoning + answer
-            </div>
-          </div>
-
-          <div class="bottom-card">
-            <h4>Ключевое различие</h4>
-            <ul>
-              <li>RAG приносит модели <span class="accent-cyan">факты и документы</span>.</li>
-              <li>Tools приносят модели <span class="accent-blue">возможность действовать</span> и читать результат действия.</li>
-              <li>Оба подхода в итоге расширяют то, что модель “видит” в текущем контексте.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="sources">
-          RAG добавляет retrieved information в prompt/context [web:23][web:26][web:29]. Function calling передаёт модели описание tools, затем результат выполнения возвращается в следующий запрос как часть многошагового tool-calling flow [web:18][web:15]. MCP формализует tools, resources и prompts как стандартные примитивы [web:3].
-        </div>
-      </section>
-
-      <section>
-        <h2>После tools начался <span class="accent-red">зоопарк</span></h2>
-
-        <div class="equation-box">
-          <div class="equation-side">
-            <h4>Что стало возможно</h4>
-            <ul>
-              <li>Агенты умеют вызывать функции.</li>
-              <li>Могут ходить в базы, SaaS и internal API.</li>
-              <li>Могут строить workflow из нескольких шагов.</li>
-              <li>Могут использовать внешний контекст на лету.</li>
-            </ul>
-          </div>
-
-          <div class="eq-sign">N×M</div>
-
-          <div class="equation-result">
-            <h4>Что стало больно</h4>
-            <ul>
-              <li>Каждый агент интегрируется с каждым инструментом отдельно.</li>
-              <li>У каждого фреймворка свои адаптеры и свои ожидания.</li>
-              <li>Появляется матрица кастомных коннекторов.</li>
-              <li>Поддержка растёт быстрее, чем ценность.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="zoo-grid">
-          <div class="zoo-item">
-            <div class="logo"><i class="bi bi-chat-dots"></i></div>
-            <h4>ChatGPT Plugins</h4>
-            <p>Один способ подключать инструменты, но не общий стандарт для всей экосистемы.</p>
-          </div>
-          <div class="zoo-item">
-            <div class="logo"><i class="bi bi-diagram-2"></i></div>
-            <h4>LangChain</h4>
-            <p>Удобные абстракции, но вместе с ними и собственный слой совместимости.</p>
-          </div>
-          <div class="zoo-item">
-            <div class="logo"><i class="bi bi-boxes"></i></div>
-            <h4>LlamaIndex / Haystack</h4>
-            <p>Каждый решает часть задачи, но не снимает M×N на уровне индустрии.</p>
-          </div>
-          <div class="zoo-item">
-            <div class="logo"><i class="bi bi-robot"></i></div>
-            <h4>AutoGPT и агенты</h4>
-            <p>Автономность усилила спрос на единый способ давать моделям действия и контекст.</p>
-          </div>
-        </div>
-
-        <div class="callout">
-          Проблема уже не в том, умеет ли LLM пользоваться инструментом. Проблема в том, как подключать десятки инструментов к десяткам клиентов без кастомного клея на каждый случай.
-        </div>
-
-        <div class="sources">
-          Источники: Anthropic, “Introducing the Model Context Protocol”, 2024 [web:3]; OpenAI, “Function calling and other API updates”, 2023 [web:15]; материалы пользователя [file:1].
-        </div>
-      </section>
-
-      <section>
-        <h2>MCP — это стандартный <span class="accent-cyan">транспорт</span></h2>
-
-        <div class="mcp-grid">
-          <div class="proto-box">
-            <h4>Что именно стандартизирует MCP</h4>
-            <p>
-              Anthropic представила Model Context Protocol в ноябре 2024 как открытый стандарт для подключения AI assistants к системам, где живут данные и инструменты.
-            </p>
-            <p>
-              Важная идея не в “новом типе интеллекта”, а в универсальном протоколе вместо разрозненных интеграций.
-            </p>
-
-            <div class="primitive-list">
-              <div class="primitive">
-                <div class="picon"><i class="bi bi-wrench-adjustable-circle"></i></div>
-                <div>
-                  <h5>Tools</h5>
-                  <p>Что модель может сделать: вызвать API, триггернуть действие, запустить код.</p>
+        <section>
+          <h2>Два трека эволюции</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-bullseye"></i>Alignment track</div>
+              <div class="step">
+                <div class="step-year">2021</div>
+                <div class="step-title">Instruction tuning</div>
+                <div class="step-desc">Модели лучше следуют инструкции и становятся понятнее в zero-shot сценариях.
                 </div>
               </div>
-
-              <div class="primitive">
-                <div class="picon"><i class="bi bi-folder2-open"></i></div>
-                <div>
-                  <h5>Resources</h5>
-                  <p>Что модель может прочитать: файлы, БД, документы, внешний контекст.</p>
-                </div>
+              <div class="step">
+                <div class="step-year">2022</div>
+                <div class="step-title">InstructGPT / RLHF</div>
+                <div class="step-desc">Появляется полезная модель, а не просто следующая версия base LLM.</div>
               </div>
-
-              <div class="primitive">
-                <div class="picon"><i class="bi bi-card-text"></i></div>
-                <div>
-                  <h5>Prompts</h5>
-                  <p>Как модель направлять: шаблоны, инструкции, заготовки поведения.</p>
+              <div class="step">
+                <div class="step-year">2023+</div>
+                <div class="step-title">Useful models</div>
+                <div class="step-desc">Качество ответа улучшается, но модель всё ещё ограничена собственным контекстом.
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="quote-box">
-            <h4>MCP — это стандартный транспорт</h4>
-            <p>
-              MCP для LLM-инструментов — примерно как HTTP для веб-сервисов.
-            </p>
-            <p>
-              Он не изобрёл tools, не изобрёл RAG и не изобрёл агентов.
-              Он сделал главное: дал общий протокол, чтобы клиент и сервер могли договориться единообразно.
-            </p>
-            <p>
-              То есть шаг выглядит так:
-              <span class="accent-blue">сначала появились useful models</span> →
-              <span class="accent-violet">потом у них появились tools</span> →
-              <span class="accent-cyan">и только потом понадобился общий протокол для интеграции всего этого</span>.
-            </p>
-
-            <div class="bottom-line">
-              Переход к MCP — это не смена парадигмы reasoning, а стандартизация already-existing agent patterns.
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-plug"></i>Augmentation track</div>
+              <div class="step">
+                <div class="step-year">2020</div>
+                <div class="step-title">RAG</div>
+                <div class="step-desc">Модель умеет подтягивать внешний контекст и отвечать на основе данных.</div>
+              </div>
+              <div class="step">
+                <div class="step-year">2022</div>
+                <div class="step-title">ReAct</div>
+                <div class="step-desc">Рассуждение связывается с действием и обращением к внешнему миру.</div>
+              </div>
+              <div class="step">
+                <div class="step-year">2023</div>
+                <div class="step-title">Function calling</div>
+                <div class="step-desc">Появляется структурированный способ вызывать инструменты и API.</div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="sources">
-          Источники: Anthropic, “Introducing the Model Context Protocol”, 2024 [web:3]; материалы пользователя [file:1].
-        </div>
-      </section>
-<section>
-  <h2>Эволюция: от <span class="accent-blue">useful models</span> к <span class="accent-cyan">MCP</span></h2>
-
-  <div style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: center; margin: 40px 0;">
-    <!-- Блок 1: Useful models -->
-    <div class="panel" style="min-height: auto; padding: 20px;">
-      <div class="panel-title"><i class="bi bi-stars"></i> Useful models</div>
-      <div class="chip">Alignment & instruction following</div>
-      <ul style="font-size: 0.5em; color: var(--muted);">
-        <li>InstructGPT / RLHF</li>
-        <li>Модели учатся следовать инструкциям</li>
-        <li>База для доверия</li>
-      </ul>
-    </div>
-
-    <!-- Стрелка -->
-    <div style="font-size: 2.5em; color: var(--yellow);">→</div>
-
-    <!-- Блок 2: Context & Tools -->
-    <div class="panel" style="min-height: auto; padding: 20px; border-color: rgba(94,234,212,.3);">
-      <div class="panel-title"><i class="bi bi-tools"></i> Context & Tools</div>
-      <div class="chip">Augmentation</div>
-      <ul style="font-size: 0.5em; color: var(--muted);">
-        <li>RAG (внешние знания)</li>
-        <li>Function calling / ReAct</li>
-        <li>Модели получают доступ к данным и действиям</li>
-      </ul>
-    </div>
-
-    <!-- Стрелка -->
-    <div style="font-size: 2.5em; color: var(--yellow);">→</div>
-
-    <!-- Блок 3: MCP Standardization -->
-    <div class="panel" style="min-height: auto; padding: 20px; border-color: rgba(167,139,250,.3);">
-      <div class="panel-title"><i class="bi bi-diagram-3"></i> MCP</div>
-      <div class="chip">Стандартизация</div>
-      <ul style="font-size: 0.5em; color: var(--muted);">
-        <li>Единый протокол для инструментов и данных</li>
-        <li>Унификация вместо зоопарка</li>
-        <li>Tools, Resources, Prompts</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Ключевая мысль -->
-  <div class="center-note" style="font-size: 0.7em; text-align: center; border-left-color: var(--blue);">
-    <i class="bi bi-lightbulb" style="margin-right: 10px;"></i>
-    MCP — это не новая магическая парадигма, а <strong>логичное продолжение эволюции</strong>: 
-    сначала модели стали полезными, потом получили контекст и инструменты, а теперь нужен единый способ интеграции.
-  </div>
-
-  <div class="sources">
-    Источники: Anthropic MCP announcement 2024; OpenAI function calling; анализ эволюции agent patterns.
-  </div>
-</section>
-<section>
-  <h2>1. Архитектура MCP</h2>
-  <div class="mcp-grid">
-    <div class="proto-box">
-      <h4>Роли протокола</h4>
-      <p>В MCP есть три ключевые роли: <b>host</b>, <b>client</b> и <b>server</b>; host управляет подключениями, client держит отдельную session к одному server, а server публикует primitives протокола [page:4][page:5].</p>
-        <ul class="small">
-          <li><code>host</code> — orchestration, UX, consent, policy boundary [page:1].</li>
-          <li><code>client</code> — protocol endpoint на одно server-соединение [page:1].</li>
-          <li><code>server</code> — tools, resources, prompts [page:1].</li>
-        </ul>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-diagram-3"></i> Взаимодействие ролей</div>
-      <div class="mermaid">
-        <pre>
-%%{init: {'theme': 'dark', 'themeVariables': {
-  'darkMode': true,
-  'primaryColor': '#14233a',
-  'primaryTextColor': '#eaf2ff',
-  'primaryBorderColor': '#58a6ff',
-  'lineColor': '#a78bfa',
-  'secondaryColor': '#111c2e',
-  'tertiaryColor': '#0d1b2a'
-}}}%%
-flowchart LR
-  H[Host]
-  C1[Client A]
-  C2[Client B]
-  S1[MCP Server 1]
-  S2[MCP Server 2]
-
-  H --> C1
-  H --> C2
-  C1 <--> S1
-  C2 <--> S2
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="sources">Источники: MCP Architecture [page:4], MCP Specification [page:5], reveal.js-mermaid-plugin usage [web:28]</div>
-</section>
-
-<section>
-  <h2>2. Session lifecycle</h2>
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-arrow-repeat"></i> Фазы session</div>
-      <div class="step">
-        <div class="step-title">1. Initialize</div>
-        <div class="step-desc">Client обязан начать с de>initialize</code> и передать версию протокола, capabilities и сведения о себе [page:5].</div>
-      </div>
-      <div class="step">
-        <div class="step-title">2. Negotiation</div>
-        <div class="step-desc">Server отвечает своей версией, capabilities и de>serverInfo</code>, после чего client отправляет de>notifications/initialized</code> [page:5].</div>
-      </div>
-      <div class="step">
-        <div class="step-title">3. Operation</div>
-        <div class="step-desc">Рабочая фаза использует только согласованную версию протокола и только negotiated features [page:5].</div>
-      </div>
-      <div class="step">
-        <div class="step-title">4. Shutdown</div>
-        <div class="step-desc">Завершение делегировано транспорту: закрытию stdio или HTTP connection [page:5].</div>
-      </div>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-signpost-split"></i> Sequence</div>
-      <div class="mermaid">
-        <pre>
-sequenceDiagram
-  participant Client
-  participant Server
-
-  Client->>Server: initialize(protocolVersion, capabilities, clientInfo)
-  Server-->>Client: result(protocolVersion, capabilities, serverInfo)
-  Client->>Server: notifications/initialized
-  Client->>Server: requests / notifications
-  Server-->>Client: responses / notifications
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="sources">Источники: MCP Lifecycle [page:5], reveal.js-mermaid-plugin usage [web:28]</div>
-</section>
-
-<section>
-  <h2>3. Capabilities и primitives</h2>
-  <div class="mcp-grid">
-    <div class="quote-box">
-      <h4>Capability negotiation</h4>
-      <p>Capabilities определяют, какие части протокола реально доступны в текущей session, и выступают как feature gates [page:5].</p>
-      <ul class="small">
-        <li>Client: <code>roots</code>, <code>sampling</code>, <code>elicitation</code>, <code>tasks</code> [page:1].</li>
-        <li>Server: <code>tools</code>, <code>resources</code>, <code>prompts</code>, <code>logging</code>, <code>completions</code>, <code>tasks</code> [page:1].</li>
-      </ul>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-boxes"></i> Примитивы сервера</div>
-      <div class="mermaid">
-        <pre>
-flowchart TD
-  S[MCP Server]
-  T[Tools]
-  R[Resources]
-  P[Prompts]
-
-  S --> T
-  S --> R
-  S --> P
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="bottom-line">Идея слайда: negotiated capabilities открывают доступ к конкретным protocol surfaces, а primitives определяют тип интерфейса, который публикует server [page:4][page:5].</div>
-  <div class="sources">Источники: MCP Architecture [page:4], MCP Lifecycle [page:5]</div>
-</section>
-
-<section>
-  <h2>4. Client-side возможности</h2>
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-pc-display-horizontal"></i> Что может client</div>
-        <ul class="small">
-          <li><code>roots</code> — объявление корневых областей данных или файлов [page:1].</li>
-          <li><code>sampling</code> — client может выполнять model sampling по запросу server'а [page:1].</li>
-          <li><code>elicitation</code> — server может запросить дополнительный ввод от пользователя через client [page:1][web:5].</li>
-          <li><code>tasks</code> — расширенная модель task-oriented interaction [page:1].</li>
-        </ul>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-arrow-left-right"></i> Обратные вызовы к client</div>
-      <div class="mermaid">
-        <pre>
-flowchart LR
-  S[Server] -->|sampling request| C[Client]
-  S -->|elicitation request| C
-  S -->|roots query| C
-  C -->|result / user input / roots| S
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="sources">Источники: MCP Lifecycle [page:5], MCP Elicitation [web:5]</div>
-</section>
-
-<section>
-  <h2>5. Logging</h2>
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-journal-text"></i> Стандартизированная observability</div>
-        <ul class="small">
-          <li>Logging включается через server capability <code>logging</code> [page:1].</li>
-          <li>Client может выставлять минимальный log level через <code>logging/setLevel</code> [page:1].</li>
-          <li>Server отправляет log events через <code>notifications/message</code> [page:1].</li>
-          <li>Уровни следуют syslog severity model: от <code>debug</code> до <code>emergency</code> [page:1].</li>
-        </ul>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-activity"></i> Поток логов</div>
-      <div class="mermaid">
-        <pre>
-sequenceDiagram
-  participant Client
-  participant Server
-
-  Client->>Server: logging/setLevel(info)
-  Server-->>Client: notifications/message(level=info, data=...)
-  Server-->>Client: notifications/message(level=warning, data=...)
-  Server-->>Client: notifications/message(level=error, data=...)
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="bottom-line">Важно: спецификация отдельно рекомендует не включать в log payload секреты, credentials и чувствительные пользовательские данные [page:1].</div>
-  <div class="sources">Источники: MCP Logging [page:1]</div>
-</section>
-
-<section>
-  <h2>6. Authorization и transport</h2>
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-shield-lock"></i> Transport-level security</div>
-      <ul class="small">
-        <li>Для HTTP-based transport авторизация в MCP строится вокруг OAuth 2.1-based подхода [page:2].</li>
-        <li>Client должен уметь находить auth server через Protected Resource Metadata, Authorization Server Metadata или OpenID Connect Discovery [page:2].</li>
-        <li>Access token передаётся через <code>Authorization: Bearer</code> header [page:2].</li>
-        <li>Для <code>stdio</code> рекомендуется использовать credentials из environment, а не переносить HTTP auth flow [page:2].</li>
-      </ul>
-    </div>
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-hdd-network"></i> HTTP auth flow</div>
-      <div class="mermaid">
-        <pre>
-flowchart LR
-  C[Client] -->|resource metadata| R[Protected Resource]
-  R -->|auth server metadata| A[Authorization Server]
-  C -->|OAuth flow| A
-  A -->|access token| C
-  C -->|Authorization: Bearer| S[MCP Server over HTTP]
-        </pre>
-      </div>
-    </div>
-  </div>
-  <div class="bottom-line">Идея: безопасность в MCP не пришивается к tool schema, а живёт на уровне transport и session access control [page:2].</div>
-  <div class="sources">Источники: MCP Authorization [page:2], reveal.js-mermaid-plugin usage [web:28]</div>
-</section>
-
-<section>
-  <h2>Почему простой proxy не подходит</h2>
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-arrow-left-right"></i> Что делает proxy</div>
-      <ul class="small">
-        <li>Пересылает запросы между моделью и внешним сервисом.</li>
-        <li>Обычно не управляет lifecycle session и feature negotiation [web:49][web:45].</li>
-        <li>Не даёт чёткой модели изоляции между разными server connections [web:45].</li>
-        <li>Плохо подходит для двусторонних protocol features вроде sampling и elicitation [web:3][web:5][web:52].</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-diagram-3-fill"></i> Что нужно MCP</div>
-      <ul class="small">
-        <li>Изолированные client-сессии в отношении 1:1 к server [web:45].</li>
-        <li>Capability negotiation на старте соединения [page:1].</li>
-        <li>Stateful session model, а не только request forwarding [web:49][page:1].</li>
-        <li>Контроль host над consent, security boundaries и context aggregation [web:45].</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="diagram-wrap">
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-x-octagon"></i> Наивный proxy</div>
-      <div class="mermaid">
-        <pre>
-flowchart LR
-  U[User] --> H[LLM App]
-  H --> P[Proxy]
-  P --> S1[Tool Server A]
-  P --> S2[Tool Server B]
-        </pre>
-      </div>
-      <p class="small muted" style="margin-top:12px;">
-        Proxy видит трафик, но сам по себе не задаёт стандартную session model, negotiated features и boundaries между серверами [web:45][web:49].
-      </p>
-    </div>
-
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-check2-circle"></i> MCP host-client-server</div>
-      <div class="mermaid">
-        <pre>
-flowchart LR
-  U[User] --> H[Host]
-  H --> C1[Client A]
-  H --> C2[Client B]
-  C1 <--> S1[MCP Server A]
-  C2 <--> S2[MCP Server B]
-        </pre>
-      </div>
-      <p class="small muted" style="margin-top:12px;">
-        Host управляет политиками и доступом, а каждый client держит отдельную stateful session с конкретным server [web:45][page:1].
-      </p>
-    </div>
-  </div>
-
-  <div class="bottom-line">
-    Простой proxy решает только маршрутизацию, а MCP стандартизирует session lifecycle, capabilities, изоляцию, client-side features и контроль безопасности со стороны host [page:1][web:45][web:3].
-  </div>
-
-  <div class="sources">
-    Источники: MCP Architecture overview [web:45], MCP Specification [web:3], MCP Transports [web:49], MCP Lifecycle [page:1], MCP Elicitation [web:5], MCP Sampling [web:52]
-  </div>
-</section>
-
-<section>
-  <h2>8. Transport details</h2>
-
-  <div class="mcp-grid">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-hdd-network"></i> Транспорты MCP</div>
-      <ul class="small">
-        <li>Основные transport-варианты в актуальном MCP: <code>stdio</code> и <code>Streamable HTTP</code> [page:1].</li>
-        <li><code>SSE</code> уже legacy по спецификации, но на практике его всё ещё нужно учитывать в compatibility и migration path [page:1].</li>
-        <li><code>stdio</code> подходит для локального subprocess-взаимодействия через <code>stdin/stdout</code> [page:1].</li>
-        <li><code>Streamable HTTP</code> использует <code>POST</code>/<code>GET</code> и может передавать server-to-client сообщения через <code>SSE</code> [page:1].</li>
-      </ul>
-    </div>
-
-    <div class="diagram-box">
-      <div class="diagram-title"><i class="bi bi-diagram-2"></i> Transport landscape</div>
-      <div class="mermaid">
-        <pre>
-flowchart TD
-  A[MCP Client]
-  B[stdio]
-  C[Streamable HTTP]
-  D[legacy SSE]
-
-  A --> B
-  A --> C
-  A -. compatibility .-> D
-  C --> E[SSE stream optional]
-        </pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>HTTP semantics</h4>
-      <ul class="small">
-        <li>Каждое JSON-RPC сообщение client → server отправляется отдельным HTTP <code>POST</code> [page:1].</li>
-        <li>Client должен отправлять <code>Accept: application/json, text/event-stream</code> [page:1].</li>
-        <li>Server может ответить либо одним JSON response, либо <code>SSE</code> stream для нескольких сообщений [page:1].</li>
-        <li>Для server-to-client уведомлений client может открывать отдельный <code>GET</code> request [page:1].</li>
-      </ul>
-    </div>
-
-    <div class="bottom-card">
-      <h4>Session и compatibility</h4>
-      <ul class="small">
-        <li>Для stateful HTTP session server может вернуть <code>MCP-Session-Id</code> при инициализации [page:1].</li>
-        <li>Дальше client обязан передавать <code>MCP-Session-Id</code> и <code>MCP-Protocol-Version</code> в следующих запросах [page:1].</li>
-        <li>В переходный период клиенты и серверы часто держат fallback между <code>Streamable HTTP</code> и legacy <code>SSE</code> [page:1].</li>
-        <li>Новая разработка должна идти в сторону <code>Streamable HTTP</code>, а SSE стоит рассматривать как compatibility layer [page:1].</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="bottom-line">
-    Идея слайда: transport в MCP — это не просто канал доставки, а правила для JSON-RPC framing, streaming, session management, compatibility и безопасной эксплуатации [page:1].
-  </div>
-
-  <div class="sources">
-    Источники: MCP Custom Transports / legacy compatibility [page:1], MCP TypeScript SDK transport compatibility examples [page:2]
-  </div>
-</section>
-<!--  -->
-<section>
-  <h2>Web / Streamable HTTP</h2>
-  <h3>Здесь gateway уже не proxy, а session-aware MCP endpoint</h3>
-
-  <div class="two-col" style="margin-top:18px;">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-broadcast-pin"></i><span>Что происходит</span></div>
-
-      <div class="step">
-        <div class="step-title">Один HTTP MCP endpoint для клиента</div>
-        <div class="step-desc">Клиент работает с gateway как с одним MCP server поверх Streamable HTTP.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">Одна внешняя session boundary</div>
-        <div class="step-desc">После initialize gateway ведёт внешнюю клиентскую сессию и связывает её с несколькими downstream MCP sessions.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">Fan-in событий и streaming</div>
-        <div class="step-desc">Notifications, progress, logging и другие server messages нужно собрать обратно в один клиентский поток.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">Capability negotiation проходит через gateway</div>
-        <div class="step-desc">Наружу публикуются только те возможности, которые gateway реально умеет поддержать end-to-end.</div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-exclamation-triangle"></i><span>Почему не proxy</span></div>
-
-      <div class="step">
-        <div class="step-title">Lifecycle</div>
-        <div class="step-desc">Gateway должен понимать initialize, initialized и последующую сессионную фазу, а не просто пересылать HTTP.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">MCP-Session-Id</div>
-        <div class="step-desc">Если session id выдан, его нужно удерживать и использовать как ключ к внутреннему session mapping.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">State store</div>
-        <div class="step-desc">Нужно хранить client session id, downstream session ids, negotiated capabilities и route table.</div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">Итог</div>
-        <div class="step-desc">Обычный reverse proxy не знает ничего про MCP session semantics, поэтому этого уровня недостаточно.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="center-note">
-    Главный тезис: в web-режиме vmcp-gateway обязан быть <span class="accent-cyan">session-aware</span>,
-    потому что MCP поверх HTTP остаётся <span class="accent-blue">stateful</span>.
-  </div>
-
-  <div class="sources">
-    В Streamable HTTP сервер может выдавать MCP-Session-Id, а клиент должен использовать его в последующих запросах.
-    Lifecycle и capability negotiation являются обязательной частью протокола, поэтому gateway должен хранить session mapping и управлять событиями, а не быть простым proxy. [web:20][web:19][file:1]
-  </div>
-</section>
-<!--  -->
-<section>
-  <h2>Группировка MCP: варианты решения</h2>
-  <h3>local, web, kubernetes</h3>
-
-  <div class="zoo-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 28px;">
-    <div class="zoo-item">
-      <div class="logo"><i class="bi bi-terminal"></i></div>
-      <h4>1. Local / stdio</h4>
-      <p>
-        Gateway живёт рядом с клиентом, агрегирует несколько MCP server в один локальный endpoint,
-        а состояние сессии держит в памяти процесса.
-      </p>
-    </div>
-
-    <div class="zoo-item">
-      <div class="logo"><i class="bi bi-globe2"></i></div>
-      <h4>2. Web</h4>
-      <p>
-        Gateway становится сетевым MCP endpoint: держит session mapping, поток событий,
-        capability negotiation и transport-level auth для HTTP.
-      </p>
-    </div>
-
-    <div class="zoo-item">
-      <div class="logo"><i class="bi bi-boxes"></i></div>
-      <h4>3. Kubernetes</h4>
-      <p>
-        Gateway работает как production-layer: multi-tenancy, routing, auth boundary,
-        session store и изоляция инструментов по namespace.
-      </p>
-    </div>
-  </div>
-
-  <div class="mini-equation" style="margin-top: 24px;">
-    много MCP server → один управляемый endpoint
-  </div>
-
-  <div class="sources">
-    MCP задаёт lifecycle, capability negotiation, standard transports и transport-level authorization для HTTP-based сценариев;
-    grouping нужен как session-aware слой поверх нескольких серверов. [web:19][web:20][web:25][web:8]
-  </div>
-</section>
-
-<section>
-  <h2>1. Local / stdio</h2>
-  <h3>Самый простой способ сгруппировать несколько MCP server</h3>
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>Что происходит</h4>
-      <ul>
-        <li>Клиент видит один MCP server.</li>
-        <li>Gateway поднимает несколько downstream-подключений.</li>
-        <li>Tools, resources и prompts публикуются как единый каталог.</li>
-      </ul>
-    </div>
-
-    <div class="bottom-card">
-      <h4>Ключевая особенность</h4>
-      <ul>
-        <li>Сессия живёт в памяти процесса.</li>
-        <li>Рестарт процесса = потеря состояния.</li>
-        <li>Подходит для desktop и локальной разработки.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="diagram-box" style="min-height: 520px;">
-    <div class="diagram-title"><i class="bi bi-diagram-3"></i><span>Локальная агрегация</span></div>
-    <pre class="mermaid">
-flowchart LR
-    C[Claude Desktop / Cursor] --> G[vmcp-gateway<br/>local process]
-    G --> J[Jira MCP]
-    G --> GH[GitHub MCP]
-    G --> S[Slack MCP]
-    G --> N[Notion MCP]
-    M[(In-memory<br/>session map)] --- G
-    R[Tool routing] --- G
-    A[Capability aggregation] --- G
-    </pre>
-  </div>
-
-
-  <div class="sources">
-    MCP рекомендует поддерживать stdio, а authorization spec отдельно указывает, что для stdio credentials обычно берутся из environment, а не через HTTP auth flow. [web:20][web:25]
-  </div>
-</section>
-
-<section>
-  <h2>2. Web</h2>
-  <h3>Session-aware gateway для Streamable HTTP</h3>
-
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>Что добавляется</h4>
-      <ul>
-        <li>Внешняя HTTP-сессия клиента.</li>
-        <li>Downstream session mapping на несколько MCP server.</li>
-        <li>Streaming, notifications и fan-in событий обратно в клиента.</li>
-      </ul>
-    </div>
-
-    <div class="bottom-card">
-      <h4>Почему не proxy</h4>
-      <ul>
-        <li>Нужно понимать initialize и initialized.</li>
-        <li>Нужно хранить negotiated capabilities.</li>
-        <li>Нужно поддерживать session semantics на уровне транспорта.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="diagram-box" style="min-height: 540px;">
-    <div class="diagram-title"><i class="bi bi-broadcast"></i><span>Web-агрегация</span></div>
-    <pre class="mermaid">
-flowchart LR
-    C[MCP Client] -->|POST / MCP| G[vmcp-gateway]
-    G --> J[Jira MCP]
-    G --> GH[GitHub MCP]
-    G --> S[Slack MCP]
-    SS[(Session Store)] --- G
-    CAP[Capability snapshot] --- G
-    EV[Notifications / stream] --> C
-    G --> EV
-    SID[MCP-Session-Id] --- G
-    </pre>
-  </div>
-
-  <div class="sources">
-    В lifecycle initialize обязан быть первым шагом, а в Streamable HTTP сервер может назначать MCP-Session-Id, который клиент затем обязан передавать в последующих запросах. [web:19][web:20]
-  </div>
-</section>
-
-<section>
-  <h2>2. Web · Auth</h2>
-  <h3>В HTTP auth становится частью архитектуры gateway</h3>
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>Роль gateway</h4>
-      <ul>
-        <li>Проверяет токен и policy.</li>
-        <li>Ограничивает доступ к capability surface.</li>
-        <li>Выступает общей auth boundary для группы MCP server.</li>
-      </ul>
-    </div>
-
-    <div class="bottom-card">
-      <h4>Практический смысл</h4>
-      <ul>
-        <li>Один вход для security и audit.</li>
-        <li>Scopes можно сопоставлять с tool groups.</li>
-        <li>Auth больше не размазан по каждому серверу отдельно.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="diagram-box" style="min-height: 520px;">
-    <div class="diagram-title"><i class="bi bi-shield-lock"></i><span>Transport-level authorization</span></div>
-    <pre class="mermaid">
-flowchart LR
-    U[User / Client] --> AS[Authorization Server]
-    AS -->|Access Token| U
-    U -->|Bearer Token| G[vmcp-gateway]
-    G --> P[Policy / Scope Check]
-    P --> J[Jira MCP]
-    P --> GH[GitHub MCP]
-    P --> S[Slack MCP]
-    TOK[(Token / claims context)] --- G
-    </pre>
-  </div>
-
-
-  <div class="sources">
-    MCP authorization spec описывает authorization именно для HTTP-based transports, рекомендует следовать этой модели при HTTP и отдельно говорит, что stdio не должен использовать этот flow. [web:25]
-  </div>
-</section>
-
-<section>
-  <h2>3. Kubernetes</h2>
-  <h3>Группировка MCP как production-платформа</h3>
-
-  <div class="bottom-grid">
-    <div class="bottom-card">
-      <h4>Что даёт Kubernetes</h4>
-      <ul>
-        <li>Multi-tenancy и namespace isolation.</li>
-        <li>Service discovery и управляемый rollout.</li>
-        <li>Общий endpoint для разных клиентов и команд.</li>
-      </ul>
-    </div>
-
-    <div class="bottom-card">
-      <h4>Что усложняет</h4>
-      <ul>
-        <li>Session affinity или shared session store.</li>
-        <li>Разделение credentials и tool catalogs по tenant.</li>
-        <li>Failover без потери MCP session semantics.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="diagram-box" style="min-height: 560px;">
-    <div class="diagram-title"><i class="bi bi-boxes"></i><span>Kubernetes deployment</span></div>
-    <pre class="mermaid">
-flowchart LR
-    C[MCP Client] --> IG[Ingress / Gateway API]
-    IG --> GW[vmcp-gateway]
-    GW --> REG[Registry]
-    GW --> SS[(Shared Session Store)]
-
-    subgraph NA[Namespace A]
-      JA[Jira agent]
-      GA[Git agent]
-      SA[Slack agent]
-    end
-
-    subgraph NB[Namespace B]
-      JB[Jira agent]
-      GB[Git agent]
-      SB[Slack agent]
-    end
-
-    GW --> JA
-    GW --> GA
-    GW --> SA
-    GW --> JB
-    GW --> GB
-    GW --> SB
-    </pre>
-  </div>
-
-  <div class="sources">
-    Для Kubernetes-сценариев session-aware routing и lifecycle management становятся критичными; session state при scale-out обычно выносят в distributed store, а gateway выступает общей точкой auth и routing. [web:62][web:20][file:2]
-  </div>
-</section>
-<section>
-  <h2>Итоговая рамка</h2>
-  <h3>От local-агрегации к production-платформе</h3>
-
-  <div class="zoo-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 26px;">
-    <div class="zoo-item" style="border-color: rgba(94,234,212,.26); box-shadow: 0 20px 60px rgba(94,234,212,.08);">
-      <div class="logo"><i class="bi bi-terminal"></i></div>
-      <h4>Local</h4>
-      <p>
-        Самый простой и быстрый вариант.
-        Gateway живёт рядом с клиентом,
-        а session state обычно хранится в памяти процесса.
-      </p>
-      <div class="chip" style="margin-top:12px;">stdio · in-memory · dev</div>
-    </div>
-
-    <div class="zoo-item" style="border-color: rgba(88,166,255,.26); box-shadow: 0 20px 60px rgba(88,166,255,.08);">
-      <div class="logo"><i class="bi bi-globe2"></i></div>
-      <h4>Web</h4>
-      <p>
-        Добавляет session model, stream и auth.
-        Gateway уже управляет transport semantics,
-        session binding и общим HTTP endpoint.
-      </p>
-      <div class="chip" style="margin-top:12px;">session id · stream · auth</div>
-    </div>
-
-    <div class="zoo-item" style="border-color: rgba(167,139,250,.26); box-shadow: 0 20px 60px rgba(167,139,250,.08);">
-      <div class="logo"><i class="bi bi-boxes"></i></div>
-      <h4>Kubernetes</h4>
-      <p>
-        Это уже grouping plus tenancy, routing
-        и operational control.
-        Gateway становится частью платформенного слоя.
-      </p>
-      <div class="chip" style="margin-top:12px;">multi-tenant · routing · ops</div>
-    </div>
-  </div>
-
-  <div class="mini-equation" style="margin-top: 26px;">
-    Local → Web → Kubernetes = рост требований к session, securёity и operations
-  </div>
-
-
-  <div class="sources">
-    MCP определяет standard transports, lifecycle и capability negotiation; HTTP-based сценарии отдельно требуют transport-level authorization,
-    а production deployment добавляет routing и session management как отдельную архитектурную задачу. [web:20][web:66][web:25][web:5][web:62]
-  </div>
-</section>
-<!--  -->
-<!-- FATMCP -->
-
-<section>
-  <h2>FastMCP: быстрый runtime для MCP</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-lightning-charge accent-cyan"></i> Что это даёт</div>
-      <ul>
-        <li>Python framework для MCP applications.</li>
-        <li>Tools описываются обычными Python-функциями.</li>
-        <li>Подходит, чтобы быстро собрать server, proxy или gateway.</li>
-      </ul>
-      <div class="center-note">
-        Для доклада это важный мост: от спецификации MCP к реально работающему прототипу.
-      </div>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-code-square accent-blue"></i> Минимальный пример</div>
-<pre><code class="language-python">from fastmcp import FastMCP
-
-mcp = FastMCP("Demo")
-
-@mcp.tool
-def echo(text: str) -> str:
-    return text</code></pre>
-      <p class="small muted">
-        Из обычной функции получается MCP tool со схемой и валидацией.
-      </p>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP позиционируется как Python framework для MCP applications; tools можно объявлять обычными Python-функциями, а framework автоматически строит schema, validation и documentation. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_7c748601-9ba5-40a4-be91-b34e70a32b57/7cbd2c8b-93ce-409b-9809-05463826273a/pasted-text.txt)
-  </div>
-</section>
-
-<section>
-  <h2>Один proxy, несколько серверов</h2>
-  <div class="diagram-wrap">
-    <div class="diagram-box tools">
-      <div class="diagram-title"><i class="bi bi-diagram-3"></i> Идея композиции</div>
-      <div class="flow">
-        <div class="node"><strong>Client</strong>Видит один MCP endpoint</div>
-        <div class="arrow">↓</div>
-        <div class="node context-node"><strong>FastMCP Proxy</strong>Один вход, mounted servers внутри</div>
-        <div class="arrow">↓</div>
-        <div class="node"><strong>echo</strong>Проверка basic tool flow</div>
-        <div class="node"><strong>fs</strong>Файловые операции</div>
-      </div>
-    </div>
-    <div class="diagram-box rag">
-      <div class="diagram-title"><i class="bi bi-code-slash"></i> Скелет</div>
-<pre><code class="language-python">from fastmcp import FastMCP
-from fastmcp.server import create_proxy
-
-mcp = FastMCP("proxy")
-
-mcp.mount(create_proxy("./echo_server.py"), namespace="echo")
-mcp.mount(create_proxy("./fs_server.py"), namespace="fs")
-
-if __name__ == "__main__":
-    mcp.run(transport="http", port=8000)</code></pre>
-      <div class="mini-equation">Один endpoint → несколько sources</div>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP поддерживает `mount()` для объединения серверов и `create_proxy()` для подключения внешних серверов; namespace помогает избегать конфликтов имён. HTTP transport поднимает сетевой MCP endpoint по URL. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_7c748601-9ba5-40a4-be91-b34e70a32b57/17470d12-0b79-46d5-9aaf-caacdd736fea/pasted-text.txt)
-  </div>
-</section>
-
-<section>
-  <h2>Добавляем memory и logger</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-database accent-violet"></i> Memory через Context</div>
-<pre><code class="language-python">from fastmcp import Context
-
-@mcp.tool
-async def open_file(path: str, ctx: Context) -> str:
-    ctx.set_state("last_file", path)
-    ctx.info(f"Open file: {path}")
-    return f"opened: {path}"</code></pre>
-      <ul class="small">
-        <li>Храним last_file или recent actions.</li>
-        <li>Получаем continuity между вызовами.</li>
-        <li>Делаем demo stateful, а не одноразовым.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-journal-text accent-yellow"></i> Logger</div>
-      <ul>
-        <li>Пишем runtime-события прямо из tool execution.</li>
-        <li>Видим, что делает сервер, а не только финальный result.</li>
-        <li>Получаем observability даже в простом демо.</li>
-      </ul>
-      <div class="callout">
-        После memory и logger это уже не toy demo, а маленький stateful integration layer.
-      </div>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP Context даёт доступ к context/state и используется внутри tools. FastMCP также поддерживает logging utilities для серверного runtime. [gofastmcp](https://gofastmcp.com/servers/context)
-  </div>
-</section>
-
-<section>
-  <h2>Дамп процесса + tasks</h2>
-  <div class="timeline">
-    <div>
-      <div class="timeline-card">
-        <h4>1. initialize</h4>
-        <p>Клиент открывает session и начинает MCP lifecycle.</p>
-      </div>
-      <div class="timeline-card">
-        <h4>2. capabilities / tools</h4>
-        <p>Proxy объявляет tools и объединённую поверхность сервера.</p>
-      </div>
-      <div class="timeline-card">
-        <h4>3. tools/call</h4>
-        <p>Во время вызова обновляем state и пишем logs.</p>
-      </div>
-    </div>
-    <div class="timeline-center">
-      <div class="year-dot y2021">init</div>
-      <div class="year-dot y2022">tools</div>
-      <div class="year-dot y2023">state</div>
-      <div class="year-dot y2024">task</div>
-    </div>
-    <div>
-      <div class="timeline-card">
-        <h4>4. task lifecycle</h4>
-        <p>Для долгих операций можно уйти в task со статусами working → completed.</p>
-      </div>
-      <div class="timeline-card">
-        <h4>5. logs</h4>
-        <p>Клиент получает runtime-сигналы и лучше понимает ход выполнения.</p>
-      </div>
-      <div class="timeline-card">
-        <h4>6. result</h4>
-        <p>Снаружи это выглядит как единый MCP server с наблюдаемым runtime.</p>
-      </div>
-    </div>
-  </div>
-  <div class="merge-banner">
-    Получается уже не просто набор tools, а composition + memory + logging + long-running execution.
-  </div>
-  <div class="sources">
-    MCP flow включает initialize, capability negotiation и работу с tools. В спецификации 2025-11-25 tasks описаны как utility для длительных операций со статусами вроде `working` и `completed`. Logging в MCP поддерживается как отдельная серверная utility. [modelcontextprotocol](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks)
-  </div>
-</section>
-<!--  -->
-<!--  -->
-<section>
-  <h2>Tool Transforms в FastMCP</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-magic accent-cyan"></i> Что можно менять</div>
-      <ul>
-        <li>Переименовывать tools и упрощать descriptions.</li>
-        <li>Переименовывать, скрывать и задавать default для аргументов.</li>
-        <li>Подменять transform function и контролировать structured output.</li>
-      </ul>
-      <div class="center-note">
-        Это нужно, когда исходный tool неудобен для LLM, но менять сам backend или upstream server не хочется.
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-sliders accent-blue"></i> Базовые built-in transforms</div>
-      <ul>
-        <li><strong>Namespace</strong> — префиксы имён при композиции серверов.</li>
-        <li><strong>Tool Transformation</strong> — rename, description, reshape args.</li>
-        <li><strong>Enabled</strong> — скрываем лишние компоненты во время runtime.</li>
-        <li><strong>Tool Search</strong> — вместо большого каталога оставляем поиск.</li>
-        <li><strong>Resources as Tools / Prompts as Tools</strong> — адаптация под tool-only clients.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP Transforms Overview перечисляет built-in transforms: Namespace, Tool Transformation, Enabled, Tool Search, Resources as Tools, Prompts as Tools и Code Mode. Tool transformation поддерживает rename, argument reshaping и изменение описаний. [gofastmcp](https://gofastmcp.com/python-sdk/fastmcp-tools-tool_transform)
-  </div>
-</section>
-
-<section>
-  <h2>Пример трансформации tool</h2>
-  <div class="diagram-wrap">
-    <div class="diagram-box tools">
-      <div class="diagram-title"><i class="bi bi-box-arrow-right"></i> До</div>
-<pre><code class="language-python">@mcp.tool
-def verbose_internal_data_fetcher(
-    query: str,
-    include_metadata: bool = True,
-    internal_limit: int = 100
-) -> str:
-    return "..."</code></pre>
-      <div class="callout">
-        Для LLM это слишком длинно, шумно и внутренне-ориентированно.
-      </div>
-    </div>
-    <div class="diagram-box rag">
-      <div class="diagram-title"><i class="bi bi-stars"></i> После</div>
-<pre><code class="language-python">from fastmcp.server.transforms import ToolTransform
-from fastmcp.tools.tool_transform import ToolTransformConfig
-
-mcp.add_transform(ToolTransform({
-  "verbose_internal_data_fetcher": ToolTransformConfig(
-    name="search",
-    description="Search the database."
-  )
-}))</code></pre>
-      <div class="mini-equation">verbose_internal_data_fetcher → search</div>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP Tool Transformation позволяет переименовывать tools и менять descriptions, в том числе для tools из mounted servers или proxies. `ToolTransformConfig` применяется к исходным именам tool’ов и меняет то, что видит клиент. [gofastmcp](https://gofastmcp.com/servers/transforms/tool-transformation)
-  </div>
-</section>
-
-<section>
-  <h2>Аргументы тоже можно сжать</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-filter-square accent-violet"></i> До</div>
-<pre><code class="language-python">@tool
-def search(q: str, limit: int = 10) -> list[str]:
-    return [f"Result {i} for {q}" for i in range(limit)]</code></pre>
-      <ul class="small">
-        <li><code>q</code> — слишком короткое и неочевидное имя.</li>
-        <li><code>limit</code> можно скрыть или зафиксировать default.</li>
-      </ul>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-arrow-repeat accent-cyan"></i> После</div>
-<pre><code class="language-python">from fastmcp.tools import Tool
-from fastmcp.tools.tool_transform import ArgTransform
-
-better_search = Tool.from_tool(
-    search,
-    name="find_items",
-    description="Find items matching your query.",
-    transform_args={
-        "q": ArgTransform(name="query"),
-        "limit": ArgTransform(default=5, hide=True),
-    },
-)</code></pre>
-      <ul class="small">
-        <li>Понятнее для модели.</li>
-        <li>Меньше schema noise.</li>
-        <li>Меньше соблазна у модели трогать лишние параметры.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="sources">
-    `Tool.from_tool()` и `ArgTransform` в FastMCP позволяют переименовывать аргументы, задавать defaults, скрывать параметры и менять описание схемы без изменения исходного tool. [gofastmcp](https://gofastmcp.com/v2/patterns/tool-transformation)
-  </div>
-</section>
-
-<section>
-  <h2>Компрессоры: как сжать каталог tools</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-archive accent-yellow"></i> Идея</div>
-      <ul>
-        <li>Проблема не только в данных, но и в самих описаниях tools.</li>
-        <li>Большой MCP server может тратить десятки тысяч токенов только на catalog.</li>
-        <li>Компрессор заменяет большой набор tool descriptions на маленький wrapper layer.</li>
-      </ul>
-      <div class="center-note">
-        Для gateway-сценариев это прямое снижение контекстной стоимости.
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-graph-down accent-blue"></i> Что говорит практика</div>
-      <ul>
-        <li>GitHub MCP server: 94 tools и около 17,600 tokens только на описания.</li>
-        <li>Atlassian MCP server: около 10,000 tokens.</li>
-        <li>Wrapper-подход может сократить это на 70–97%.</li>
-      </ul>
-      <div class="mini-equation">17,600 → 528–5,280 tokens</div>
-    </div>
-  </div>
-  <div class="sources">
-    MCP Compressor описывает проблему больших tool catalogs: GitHub MCP server с 94 tools потребляет около 17,600 tokens, Atlassian MCP server — около 10,000 tokens только на tool descriptions. Тот же источник заявляет снижение потребления на 70–97% за счёт замены десятков tools на 2 wrapper tools. [atlassian-labs.github](https://atlassian-labs.github.io/mcp-compressor/)
-  </div>
-</section>
-
-<section>
-  <h2>Сколько можно сэкономить</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-calculator accent-cyan"></i> Быстрый счёт</div>
-      <ul>
-        <li>Если каталог занимает 17,600 tokens, то при сжатии на 70% остаётся 5,280 tokens.</li>
-        <li>При сжатии на 90% остаётся 1,760 tokens.</li>
-        <li>При сжатии на 97% остаётся всего 528 tokens.</li>
-      </ul>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-cash-stack accent-green"></i> Для доклада главный вывод</div>
-      <ul>
-        <li>Экономия идёт не на единицы процентов, а на порядок.</li>
-        <li>Особенно полезно, когда у gateway десятки или сотни tools.</li>
-        <li>Tool compression — это уже optimisation layer поверх MCP composition.</li>
-      </ul>
-      <div class="callout">
-        То есть после “как подключить tools” следующий зрелый вопрос — “как не утонуть в их контекстной цене”.
-      </div>
-    </div>
-  </div>
-  <div class="sources">
-    На примере 17,600 tokens сокращение на 70–97% даёт диапазон примерно от 5,280 до 528 tokens. Это соответствует общей задаче уменьшения стоимости tool catalogs в MCP-сценариях. [atlassian-labs.github](https://atlassian-labs.github.io/mcp-compressor/)
-  </div>
-</section>
-<!--  -->
-<section>
-  <h2>Сжатие запроса перед LLM</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-arrows-collapse accent-cyan"></i> Идея</div>
-      <ul>
-        <li>Запрос можно мутировать до отправки в модель.</li>
-        <li>Сжимаем длинные descriptions, chat context и tool hints.</li>
-        <li>Выбираем стратегию под клиента: quality, balanced, aggressive.</li>
-      </ul>
-      <div class="center-note">
-        Это уже не просто tool transformation, а отдельный compression layer перед inference.
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-box-seam accent-blue"></i> Что можно использовать</div>
-      <ul>
-        <li><strong>LLMLingua</strong> — model-based prompt compression.</li>
-        <li><strong>Selective Context</strong> — оставляет только информативные части.</li>
-        <li><strong>emoji</strong> — кастомный shorthand для контролируемых сценариев.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="sources">
-    `llmlingua` доступен как Python-пакет для prompt compression. `Selective Context` сжимает prompt/context, оставляя наиболее информативные части. Пакет `emoji` позволяет делать shortcode/emoji преобразования для кастомного сокращения текста. [github](https://github.com/liyucheng09/Selective_Context)
-  </div>
-</section>
-
-<section>
-  <h2>Пример мутации запроса</h2>
-  <div class="diagram-wrap">
-    <div class="diagram-box tools">
-      <div class="diagram-title"><i class="bi bi-file-text"></i> До</div>
-      <div class="node">
-        <strong>Исходный запрос</strong>
-        Summarize the last 20 file operations, explain repeated failures, include metadata, preserve all warnings, and suggest next debugging steps.
-      </div>
-      <div class="callout">
-        Хороший для человека, но дорогой как runtime context.
-      </div>
-    </div>
-    <div class="diagram-box rag">
-      <div class="diagram-title"><i class="bi bi-lightning"></i> После</div>
-      <div class="node result-node">
-        <strong>Сжатый вариант</strong>
-        Summarize recent file ops, repeated failures, warnings, next debug steps.
-      </div>
-      <div class="mini-equation">semantic preserve → fewer tokens</div>
-    </div>
-  </div>
-  <div class="sources">
-    LLMLingua поддерживает `compress_prompt()` с управлением через `target_token`. Selective Context также предназначен для сжатия prompt/context без потери ключевой информации. [github](https://github.com/microsoft/LLMLingua/blob/main/llmlingua/prompt_compressor.py)
-  </div>
-</section>
-
-<section>
-  <h2>Пример на Python</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-cpu accent-violet"></i> LLMLingua</div>
-<pre><code class="language-python">from llmlingua import PromptCompressor
-
-compressor = PromptCompressor()
-result = compressor.compress_prompt(
-    context=[user_prompt],
-    target_token=80
-)
-
-compressed = result["compressed_prompt"]</code></pre>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-emoji-smile accent-yellow"></i> Emoji shorthand</div>
-<pre><code class="language-python">text = user_prompt
-text = text.replace("warning", "⚠️")
-text = text.replace("critical", "🔥")
-text = text.replace("success", "✅")</code></pre>
-      <p class="small muted">
-        Не универсальный compressor, а кастомный shorthand для контролируемых клиентов.
-      </p>
-    </div>
-  </div>
-  <div class="sources">
-    `PromptCompressor.compress_prompt(..., target_token=...)` показан в коде LLMLingua. Пакет `emoji` и связанные примеры подтверждают преобразование текста и shortcode/emoji representation. [hrekov](https://hrekov.com/blog/remove-replace-emoji-python)
-  </div>
-</section>
-
-<section>
-  <h2>Динамический выбор компрессии</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-diagram-2 accent-cyan"></i> По типу клиента</div>
-      <ul>
-        <li><strong>Rich client</strong> → мягкая компрессия через LLMLingua.</li>
-        <li><strong>Lightweight client</strong> → aggressive pruning.</li>
-        <li><strong>Domain client</strong> → кастомные alias/emoji/rules.</li>
-      </ul>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-speedometer2 accent-blue"></i> Смысл</div>
-      <ul>
-        <li>Сжатие становится policy layer.</li>
-        <li>Один и тот же tool catalog можно отдавать по-разному.</li>
-        <li>Экономим токены без жёстко одного универсального режима.</li>
-      </ul>
-      <div class="callout">
-        Не просто “сжать всё”, а “сжать по профилю клиента”.
-      </div>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP поддерживает transforms как отдельный слой адаптации серверного интерфейса. Python-библиотеки вроде `llmlingua`, `selective-context` и rule-based approaches позволяют строить client-aware compression policies поверх этого слоя. [pypi](https://pypi.org/project/llmlingua/)
-  </div>
-</section>
-<!--  -->
-<section>
-  <h2>Краткая реализация сжатия на FastMCP</h2>
-  <div class="two-col">
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-funnel accent-cyan"></i> Идея</div>
-      <ul>
-        <li>Принимаем длинный запрос от клиента.</li>
-        <li>Перед вызовом upstream tool прогоняем его через компрессор.</li>
-        <li>Логируем, сколько символов или токенов удалось убрать.</li>
-      </ul>
-      <div class="center-note">
-        В FastMCP это можно делать либо как отдельный tool-wrapper, либо через middleware around request flow.
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-layers accent-blue"></i> Где встраивать</div>
-      <ul>
-        <li><strong>Tool transform</strong> — меняем интерфейс и аргументы tool.</li>
-        <li><strong>Middleware</strong> — перехватываем request и мутируем payload централизованно.</li>
-        <li><strong>Context</strong> — пишем logs и сохраняем статистику сжатия.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="sources">
-    FastMCP поддерживает Tool Transformation для изменения tool schemas и поведения. Middleware в FastMCP может inspect/modify requests in pipeline. Context даёт logging и state внутри tool execution. [gofastmcp](https://gofastmcp.com/v2/patterns/tool-transformation)
-  </div>
-</section>
-
-<section>
-  <h2>Пример: wrapper tool с компрессией</h2>
-  <div class="diagram-wrap">
-    <div class="diagram-box tools">
-      <div class="diagram-title"><i class="bi bi-code-slash"></i> Код</div>
-<pre><code class="language-python">from fastmcp import FastMCP, Context
-from llmlingua import PromptCompressor
-
-mcp = FastMCP("Compression Demo")
-compressor = PromptCompressor()
-
-@mcp.tool
-async def compressed_search(query: str, ctx: Context) -> str:
-    result = compressor.compress_prompt(
-        context=[query],
-        target_token=80
-    )
-    compressed = result["compressed_prompt"]
-
-    await ctx.info(f"query: {len(query)} -> {len(compressed)} chars")
-    await ctx.set_state("last_compressed_query", compressed)
-
-    return compressed</code></pre>
-    </div>
-    <div class="diagram-box rag">
-      <div class="diagram-title"><i class="bi bi-arrow-left-right"></i> Что здесь происходит</div>
-      <div class="flow">
-        <div class="node"><strong>Вход</strong>Длинный пользовательский query</div>
-        <div class="arrow">↓</div>
-        <div class="node context-node"><strong>LLMLingua</strong>Сжимает текст до target budget</div>
-        <div class="arrow">↓</div>
-        <div class="node"><strong>Context</strong>Логируем и сохраняем результат</div>
-        <div class="arrow">↓</div>
-        <div class="node result-node"><strong>Выход</strong>Короткий query для следующего tool/LLM call</div>
-      </div>
-    </div>
-  </div>
-  <div class="sources">
-    LLMLingua предоставляет `PromptCompressor` и `compress_prompt()` для prompt compression. FastMCP Context позволяет логировать через `ctx.info(...)` и сохранять session state через `ctx.set_state(...)`. [gofastmcp](https://gofastmcp.com/python-sdk/fastmcp-server-context)
-  </div>
-</section>
-
-<section>
-  <h2>Вариант с client-aware стратегией</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title"><i class="bi bi-diagram-2 accent-violet"></i> Простая стратегия</div>
-<pre><code class="language-python">def compress_for_client(text: str, client: str) -> str:
-    if client == "rich":
-        return llmlingua_compress(text)
-    if client == "lite":
-        return shrink_prompt(text)
-    if client == "emoji":
-        return to_emoji_shortcuts(text)
-    return text</code></pre>
-      <p class="small muted">
-        Один и тот же запрос сжимается по-разному в зависимости от клиента.
-      </p>
-    </div>
-    <div class="panel align">
-      <div class="panel-title"><i class="bi bi-person-gear accent-yellow"></i> Зачем это нужно</div>
-      <ul>
-        <li>Desktop client может позволить более мягкое сжатие.</li>
-        <li>Лёгкий web client — aggressive compression.</li>
-        <li>Domain-specific client — custom shorthand или aliases.</li>
-      </ul>
-      <div class="callout">
-        Compression становится policy layer, а не одной жёсткой функцией для всех.
-      </div>
-    </div>
-  </div>
-  <div class="sources">
-    Python-пакеты `llmlingua`, `shrink-prompt` и `emoji` подходят для разных стратегий сжатия. FastMCP transforms дают естественный слой, поверх которого можно строить client-aware adaptation. [gofastmcp](https://gofastmcp.com/servers/transforms/transforms)
-  </div>
-</section>
-<section>
-  <h2>MCP JSON: запуск proxy через FastMCP</h2>
-  <div class="two-col">
-    <div class="panel">
-      <div class="panel-title">
-        <i class="bi bi-filetype-json accent-cyan"></i> Конфиг клиента
-      </div>
-      <pre><code class="language-json">{
-  "mcpServers": {
-    "My Proxy": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--with",
-        "fastmcp",
-        "fastmcp",
-        "run",
-        "/absolute/path/to/proxy.py"
-      ],
-      "env": {
-        "MODE": "proxy"
-      }
-    }
-  }
-}</code></pre>
-      <p class="small muted">Здесь JSON описывает не код сервера, а то, как клиент должен его запускать.</p>
-    </div>
-    <div class="panel">
-      <div class="panel-title">
-        <i class="bi bi-terminal accent-blue"></i> Как получить
-      </div>
-      <pre><code class="language-bash">fastmcp install mcp-json proxy.py --name "My Proxy"</code></pre>
-      <ul class="small">
-        <li>FastMCP генерирует стандартный MCP JSON.</li>
-        <li>Этот формат понимают Claude Desktop, Cursor, VS Code и другие MCP-клиенты.</li>
-        <li>То есть proxy можно раздавать как готовую клиентскую конфигурацию.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="sources">
-    <p>
-      FastMCP умеет генерировать стандартный MCP JSON configuration, совместимый с Claude Desktop, VS Code, Cursor и другими MCP-клиентами.
-      Формат использует объект <code>mcpServers</code> с полями <code>command</code>, <code>args</code> и <code>env</code>.
-      Команда <code>fastmcp install mcp-json server.py</code> генерирует такой конфиг автоматически.<sup>[1]</sup>
-    </p>
-  </div>
-</section>
-<!--  -->
-
-<!-- Slide 42 -->
-<section>
-  <div class="hero">
-    <div class="hero-box">
-      <div class="eyebrow">Часть 5</div>
-      <h1><span class="accent-cyan">FastMCP Cloud Gateway</span> как production-слой</h1>
-
-      <div class="big-question">
-        Идею gateway мы уже разобрали.<br/>
-        Теперь — как это выглядит в <span class="accent-blue">реальной реализации</span>.
-      </div>
-
-      <p class="lead">
-        Здесь я больше не повторяю routing, grouping и compact context.
-        Я показываю финальную форму: один cloud gateway,
-        за ним каталог серверов и набор реальных MCP-интеграций.
-      </p>
-    </div>
-
-    <div class="hero-right">
-      <div class="metric">
-        <div class="icon"><i class="bi bi-cloud"></i></div>
-        <div class="value">1 Cloud endpoint</div>
-        <div class="label">Снаружи один вход для клиентов и приложений.</div>
-      </div>
-
-      <div class="metric">
-        <div class="icon"><i class="bi bi-journal-richtext"></i></div>
-        <div class="value">Registry behind it</div>
-        <div class="label">Внутри — каталог MCP-серверов и capability discovery.</div>
-      </div>
-
-      <div class="metric">
-        <div class="icon"><i class="bi bi-tools"></i></div>
-        <div class="value">Real MCP backends</div>
-        <div class="label">Jira, GitHub, Slack, Notion и внутренние сервисы как execution layer.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-line">
-    Финальная мысль конца: не “ещё одна библиотека”, а понятная cloud-архитектура вокруг MCP.
-  </div>
-</section>
-
-<!-- Slide 43 -->
-<section>
-  <h2>Архитектура: <span class="accent-cyan">Cloud Gateway → Registry → MCP servers</span></h2>
-
-  <div class="mcp-grid">
-    <div class="proto-box">
-      <h4>Что видно снаружи</h4>
-      <p>
-        Клиенты, IDE и внутренние приложения подключаются к одному gateway endpoint.
-        Им не нужно знать про десятки отдельных MCP-серверов и их конфигурацию.
-      </p>
-
-      <div class="primitive-list">
-        <div class="primitive">
-          <div class="picon"><i class="bi bi-box-arrow-in-right"></i></div>
-          <div>
-            <h5>Gateway</h5>
-            <p>Единая точка входа для MCP-клиентов и внутренних сервисов.</p>
+          <div class="callout cyan">Полезные модели и внешние инструменты развивались параллельно — MCP возник на их
+            пересечении.</div>
+        </section>
+
+        <section>
+          <h2>Таймлайн 2021–2024</h2>
+          <div class="timeline">
+            <div>
+              <div class="timeline-card">
+                <h4>Instruction following</h4>
+                <p>Модели становятся предсказуемее и лучше понимают задачу пользователя.</p>
+              </div>
+              <div class="timeline-card">
+                <h4>RLHF</h4>
+                <p>Появляется понятие useful model — моделью уже можно пользоваться как продуктом.</p>
+              </div>
+              <div class="timeline-card">
+                <h4>Улучшение качества</h4>
+                <p>Ответы лучше, но доступ к реальному миру всё ещё ограничен контекстным окном.</p>
+              </div>
+            </div>
+            <div class="timeline-center">
+              <div class="year-dot y2021">2021</div>
+              <div class="year-dot y2022">2022</div>
+              <div class="year-dot y2023">2023</div>
+              <div class="year-dot y2024">2024</div>
+            </div>
+            <div>
+              <div class="timeline-card">
+                <h4>RAG</h4>
+                <p>Внешние знания становятся частью ответа.</p>
+              </div>
+              <div class="timeline-card">
+                <h4>ReAct</h4>
+                <p>LLM уже не только отвечает, но и делает шаги в цикле reasoning + acting.</p>
+              </div>
+              <div class="timeline-card">
+                <h4>Function calling → MCP</h4>
+                <p>Инструменты стандартизируются и начинают жить как отдельная платформа.</p>
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="merge-banner">Поворотный момент: в 2023–2024 модели научились не только отвечать, но и работать с
+            внешними системами системно.</div>
+        </section>
 
-        <div class="primitive">
-          <div class="picon"><i class="bi bi-search"></i></div>
-          <div>
-            <h5>Registry</h5>
-            <p>Каталог доступных серверов, capability discovery и конфигурация surface.</p>
+        <section>
+          <h2><span class="accent-cyan">RAG</span> vs <span class="accent-blue">Tools</span></h2>
+          <div class="two-col">
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-database-add"></i>RAG</div>
+              <div class="node"><strong>1. User query</strong>Запрос требует знания, которого нет в исходном контексте
+                модели.</div>
+              <div class="arrow">↓</div>
+              <div class="node"><strong>2. Retrieval</strong>Достаём релевантные документы или записи из внешней базы.
+              </div>
+              <div class="arrow">↓</div>
+              <div class="node context-node"><strong>3. Retrieved context</strong>Подмешиваем найденное знание в
+                контекст модели.</div>
+              <div class="arrow">↓</div>
+              <div class="node result-node"><strong>4. LLM answer</strong>Модель отвечает лучше, потому что знает
+                больше.</div>
+            </div>
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-wrench-adjustable-circle"></i>Tools</div>
+              <div class="node"><strong>1. User query</strong>Запрос требует не только знания, но и действия.</div>
+              <div class="arrow">↓</div>
+              <div class="node"><strong>2. Tool schema</strong>Модель видит контракт инструмента и понимает, как вызвать
+                действие.</div>
+              <div class="arrow">↓</div>
+              <div class="node"><strong>3. Tool call execution</strong>Происходит реальный вызов API, сервиса или
+                workflow.</div>
+              <div class="arrow">↓</div>
+              <div class="node context-node"><strong>4. Tool result</strong>Результат действия возвращается модели в
+                контекст.</div>
+            </div>
           </div>
-        </div>
+          <div class="equation">RAG помогает модели знать, tools помогают модели делать</div>
+        </section>
 
-        <div class="primitive">
-          <div class="picon"><i class="bi bi-diagram-2"></i></div>
-          <div>
-            <h5>MCP servers</h5>
-            <p>Интеграции с внешними системами и выполнение реальных tool-вызовов.</p>
+        <section>
+          <h2>MCP как стандартная поверхность</h2>
+          <div class="two-col">
+            <div class="quote-box">
+              <div class="panel-title"><i class="bi bi-diagram-3"></i>MCP</div>
+              <p class="small">MCP даёт общий протокол, через который AI-приложения могут работать с внешними системами
+                предсказуемо и единообразно.</p>
+              <div class="primitive-list">
+                <div class="primitive">
+                  <div class="picon"><i class="bi bi-wrench-adjustable-circle"></i></div>
+                  <div>
+                    <h5>Tools</h5>
+                    <p>Действия и API-вызовы, которые модель может инициировать.</p>
+                  </div>
+                </div>
+                <div class="primitive">
+                  <div class="picon"><i class="bi bi-folder2-open"></i></div>
+                  <div>
+                    <h5>Resources</h5>
+                    <p>Данные и документы, которые можно читать как контекст.</p>
+                  </div>
+                </div>
+                <div class="primitive">
+                  <div class="picon"><i class="bi bi-card-text"></i></div>
+                  <div>
+                    <h5>Prompts</h5>
+                    <p>Готовые шаблоны и сценарии взаимодействия.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-lightbulb"></i>Почему это важно</div>
+              <ul class="small">
+                <li>Модель перестаёт жить только внутри prompt.</li>
+                <li>Внешние системы получают единый способ интеграции.</li>
+                <li>Появляется пространство для gateway, policy и orchestration.</li>
+              </ul>
+              <div class="callout cyan">Именно здесь начинается разговор не просто про tools, а про MCP gateway как
+                новый слой системы.</div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        <section>
+          <h2>MCP architecture</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-person-workspace"></i>Роли</div>
+              <ul class="small">
+                <li><strong>Host</strong> — держит UX, consent, orchestration и policy boundary.</li>
+                <li><strong>Client</strong> — говорит по протоколу с сервером.</li>
+                <li><strong>Server</strong> — публикует tools, resources и prompts.</li>
+              </ul>
+              <div class="callout">Это уже не просто HTTP endpoint: тут есть роли, состояние и жизненный цикл
+                взаимодействия.</div>
+            </div>
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-diagram-3"></i>Схема</div>
+              <div class="mermaid">
+                flowchart LR
+                H[Host]
+                C1[Client A]
+                C2[Client B]
+                S1[MCP Server 1]
+                S2[MCP Server 2]
+                H --> C1
+                H --> C2
+                C1 --> S1
+                C2 --> S2
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Proxy vs MCP gateway</h2>
+          <div class="two-col">
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-x-octagon"></i>Обычный proxy</div>
+              <div class="mermaid">
+                flowchart LR
+                U[User] --> A[LLM App]
+                A --> P[Proxy]
+                P --> S1[Tool Server A]
+                P --> S2[Tool Server B]
+              </div>
+              <p class="small">Proxy умеет переслать запрос, но не понимает сессионную модель, capability negotiation и
+                границы orchestration.</p>
+            </div>
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-check2-circle"></i>MCP gateway</div>
+              <div class="mermaid">
+                flowchart LR
+                U[User] --> H[Host]
+                H --> C1[Client A]
+                H --> C2[Client B]
+                C1 --> S1[MCP Server A]
+                C2 --> S2[MCP Server B]
+              </div>
+              <p class="small">MCP gateway понимает state, lifecycle, negotiated features и может собирать несколько
+                downstream серверов в одну поверхность.</p>
+            </div>
+          </div>
+          <div class="callout red">Главная мысль: MCP gateway — не reverse proxy, а stateful application layer.</div>
+        </section>
+
+        <section>
+          <h2>Транспорт и сессия</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-hdd-network"></i>Transport landscape</div>
+              <ul class="small">
+                <li>stdio — subprocess и прямой IO.</li>
+                <li>Streamable HTTP — JSON-RPC поверх HTTP.</li>
+                <li>SSE — server-to-client streaming и совместимость.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Что делает MCP сложнее</div>
+              <ul class="small">
+                <li>Session binding и lifecycle.</li>
+                <li>Initialize и capability negotiation.</li>
+                <li>Notifications, progress, logs.</li>
+                <li>Нужен boundary, который всё это понимает.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="equation">HTTP endpoint ≠ MCP gateway</div>
+        </section>
+
+        <section>
+          <h2>MCP gateway как фреймворк зрелости</h2>
+          <div class="three-col">
+            <div class="chipbox">
+              <div class="panel-title"><i class="bi bi-terminal"></i>Local</div>
+              <p class="small">Локальный runtime, stdio, in-memory state, быстрый developer loop.</p>
+              <div class="equation" style="font-size:.58em">stdio · dev · in-memory</div>
+            </div>
+            <div class="chipbox">
+              <div class="panel-title"><i class="bi bi-globe2"></i>Web</div>
+              <p class="small">HTTP endpoint, session mapping, streaming, auth boundary и policy.</p>
+              <div class="equation" style="font-size:.58em">session id · stream · auth</div>
+            </div>
+            <div class="chipbox">
+              <div class="panel-title"><i class="bi bi-boxes"></i>Kubernetes</div>
+              <p class="small">Shared state, tenant isolation, routing, operational control и scale-out.</p>
+              <div class="equation" style="font-size:.58em">multi-tenant · routing · ops</div>
+            </div>
+          </div>
+          <div class="callout cyan">Это удобная рамка доклада: один и тот же MCP gateway взрослеет от локального runtime
+            до production-platform.</div>
+        </section>
+
+        <section>
+          <h2>Framework layer: FastMCP</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-lightning-charge"></i>Что даёт framework</div>
+              <ul class="small">
+                <li>Python primitives для MCP-приложений.</li>
+                <li>Серверы, proxy и gateway-паттерны.</li>
+                <li>Быстрый старт для experiments и внутренних платформ.</li>
+              </ul>
+              <div class="callout">Это важный слайд для зала: MCP gateway не нужно собирать с нуля на голом протоколе.
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-code-square"></i>Минимальный FastMCP</div>
+              <div class="code">from fastmcp import FastMCP
+
+                mcp = FastMCP("Demo")
+
+                @mcp.tool
+                def echo(text: str) -> str:
+                return text</div>
+              <p class="tiny">Framework-слой превращает MCP из спецификации в инженерный конструктор.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Framework layer: proxy и mount</h2>
+          <div class="two-col">
+            <div class="diagram-box">
+              <div class="panel-title"><i class="bi bi-diagram-3"></i>Идея</div>
+              <div class="node"><strong>Client</strong>MCP endpoint для IDE, desktop-клиента или внутреннего workflow.
+              </div>
+              <div class="arrow">↓</div>
+              <div class="node context-node"><strong>FastMCP Proxy</strong>Собирает mounted servers в одну точку входа.
+              </div>
+              <div class="arrow">↓</div>
+              <div class="node"><strong>echo / fs / jira / github</strong>Ниже могут быть разные backend MCP servers.
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-code-slash"></i>Mounting</div>
+              <div class="code">from fastmcp import FastMCP
+                from fastmcp.server import create_proxy
+
+                mcp = FastMCP("proxy")
+                mcp.mount(create_proxy("./echo_server.py"), namespace="echo")
+                mcp.mount(create_proxy("./fs_server.py"), namespace="fs")
+
+                if __name__ == "__main__":
+                mcp.run(transport="http", port=8000)</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Framework layer: tool transforms</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-box-arrow-right"></i>До</div>
+              <div class="code">name: verbose_internal_data_fetcher
+                args:
+                - query
+                - include_metadata
+                - internal_limit
+                - debug</div>
+              <p class="tiny">Такой surface перегружает модель и раздувает контекст.</p>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-stars"></i>После</div>
+              <div class="code">name: search
+                args:
+                - query</div>
+              <p class="tiny">Gateway или framework может переименовать, скрыть аргументы и упростить контракт.</p>
+              <div class="equation">verbose_internal_data_fetcher → search</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="hero">
+            <div class="box hero-box">
+              <div class="eyebrow">Implementation</div>
+              <h1><span class="accent-cyan">vmcp-gateway</span> на FastAPI</h1>
+              <div class="big">Теперь приземляем framework-рамку<br>в собственный runtime</div>
+              <p class="lead">Здесь начинается твоя инженерная часть: SessionManager, handshake, route table,
+                notifications fan-in, tasks и transforms.</p>
+              <div class="equation">1 client session + N downstream sessions + 1 compact tool surface</div>
+            </div>
+            <div>
+              <div class="metric">
+                <div class="v">Session state</div>
+                <div class="l">capabilities, route table, active tasks</div>
+              </div>
+              <div class="metric">
+                <div class="v">Task layer</div>
+                <div class="l">workflow-level action поверх primitive tools</div>
+              </div>
+              <div class="metric">
+                <div class="v">Transforms</div>
+                <div class="l">управление agent-facing surface</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Компоненты MCP gateway</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-boxes"></i>Состав</div>
+              <div class="step">
+                <div class="step-title">Server Registry</div>
+                <div class="step-desc">upstream MCP servers: jira, github, slack.</div>
+              </div>
+              <div class="step">
+                <div class="step-title">SessionManager</div>
+                <div class="step-desc">client session, downstream sessions, routing table, active tasks.</div>
+              </div>
+              <div class="step">
+                <div class="step-title">ToolCatalog</div>
+                <div class="step-desc">visible tools, namespacing, transforms, capability filtering.</div>
+              </div>
+              <div class="step">
+                <div class="step-title">TaskRunner</div>
+                <div class="step-desc">workflow-level operations внутри gateway.</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-file-earmark-code"></i>Bootstrap</div>
+              <div class="code">app = FastAPI(title="vmcp-gateway")
+
+                @app.on_event("startup")
+                async def startup():
+                app.state.registry = {
+                "jira": LocalMcpServer("http://localhost:9001/mcp"),
+                "github": LocalMcpServer("http://localhost:9002/mcp"),
+                "slack": LocalMcpServer("http://localhost:9003/mcp"),
+                }
+                app.state.sessions = {}
+                app.state.task_runner = TaskRunner()</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>SessionManager</h2>
+          <div class="bottom-grid">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-diagram-3"></i>GatewaySession</div>
+              <div class="code">class GatewaySession:
+                client_session_id
+                client_capabilities
+                downstream
+                tool_to_server
+                visible_tools
+                notifications_buffer
+                active_tasks</div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-database"></i>Зачем это нужно</div>
+              <ul class="small">
+                <li>Хранить downstream session ids и negotiated state.</li>
+                <li>Держать route table для tool calls.</li>
+                <li>Буферизовать notifications и task state.</li>
+                <li>Быть единым местом правды для runtime.</li>
+              </ul>
+              <div class="callout red">Вот здесь MCP gateway окончательно перестаёт быть прокси и становится stateful
+                application layer.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Initialize: как собирается единый мир</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-arrow-repeat"></i>Handshake</div>
+              <div class="code">async def initialize(session_id, client_caps):
+                gw = GatewaySession(...)
+                for name, server in registry.items():
+                ds = await server.initialize(client_caps)
+                gw.downstream[name] = ds
+                for tool in ds.tools:
+                public = f"{name}.{tool.name}"
+                gw.tool_to_server[public] = name
+                gw.visible_tools.append({...})
+                sessions[session_id] = gw
+                return {"tools": gw.visible_tools}</div>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-signpost-split"></i>Что появляется после initialize</div>
+              <ul class="small">
+                <li>N downstream connections вместо одной локальной догадки.</li>
+                <li>Namespace вида `jira.create_issue`.</li>
+                <li>Capability snapshot на всю клиентскую сессию.</li>
+                <li>Единый tool catalog для клиента.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Route table вместо if-else ада</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-map"></i>Идея</div>
+              <ul class="small">
+                <li>Имена инструментов уже подготовлены при initialize.</li>
+                <li>По tool name сразу находим нужный server.</li>
+                <li>Клиент не знает и не должен знать, где реально живёт tool.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-arrow-left-right"></i>Вызов</div>
+              <div class="code">async def call_tool(session_id, tool_name, args):
+                gw = self.get(session_id)
+                server_name = gw.tool_to_server[tool_name]
+                downstream = gw.downstream[server_name]
+                raw_name = tool_name.split('.', 1)[1]
+                return await downstream.call_tool(raw_name, args)</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Notifications fan-in</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-broadcast"></i>Что собираем</div>
+              <ul class="small">
+                <li>Progress events.</li>
+                <li>Logging messages.</li>
+                <li>Domain notifications от downstream серверов.</li>
+                <li>Единый поток событий для клиента.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-code"></i>Модель</div>
+              <div class="code">for server_name, downstream in gw.downstream.items():
+                asyncio.create_task(forward(server_name, downstream))
+
+                wrapped = {
+                "source": server_name,
+                "event": event,
+                }</div>
+              <div class="callout orange">Fan-in событий — одна из самых недооценённых причин, почему MCP gateway
+                полезнее простого proxy.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Task layer: от primitive tools к workflow</h2>
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-list-task"></i>TaskRunner</div>
+              <div class="code">jira.create_issue
+                → github.create_pr
+                → slack.send_message</div>
+              <p class="small">Task поднимает уровень абстракции: агент видит действие верхнего уровня, а не набор
+                низкоуровневых шагов.</p>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-activity"></i>Lifecycle</div>
+              <div class="code">task_id
+                status = working
+                ...
+                status = completed | failed</div>
+              <p class="small">Task status, notifications и result дают наблюдаемость, которой не хватает обычному
+                набору tools.</p>
+            </div>
+          </div>
+          <div class="equation">Task = orchestration layer внутри MCP gateway</div>
+        </section>
+
+        <section>
+          <h2>Transforms, grouping и policy</h2>
+          <div class="three-col">
+            <div class="mini panel">
+              <h3>Transforms</h3>
+              <p class="small">Переименование, скрытие args, defaults, упрощение schema и description.</p>
+            </div>
+            <div class="mini panel">
+              <h3>Grouping</h3>
+              <p class="small">Issue Management, Repo &amp; PR, Messaging — компактный каталог для агента.</p>
+            </div>
+            <div class="mini panel">
+              <h3>Policy</h3>
+              <p class="small">Capability filtering и скрытие destructive operations по claims / scopes.</p>
+            </div>
+          </div>
+          <div class="callout cyan">Это и есть product-facing сторона MCP gateway: не только вызвать tool, но и
+            сформировать правильную поверхность для модели.</div>
+        </section>
+
+        <section>
+          <div class="hero">
+            <div class="box hero-box">
+              <div class="eyebrow">Production</div>
+              <h1>Event-Driven <span class="accent-cyan">MCP Gateway</span></h1>
+              <div class="big">FastAPI, <span class="accent-red">Redis Streams</span> и <span
+                  class="accent-orange">Rust</span></div>
+              <p class="lead">Здесь локальный in-memory runtime эволюционирует в production-grade distributed system с
+                message bus и отдельным IO worker layer.</p>
+              <div class="equation">API gateway → message bus → IO workers</div>
+            </div>
+            <div>
+              <div class="metric">
+                <div class="v">FastAPI</div>
+                <div class="l">stateless API, routing, transforms, auth</div>
+              </div>
+              <div class="metric">
+                <div class="v">Redis Streams</div>
+                <div class="l">request/response и notifications fan-in</div>
+              </div>
+              <div class="metric">
+                <div class="v">Rust workers</div>
+                <div class="l">stdio lifecycle, zero HTTP overhead, scale-to-zero</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Почему локальный runtime ломается в production</h2>
+          <div class="three-col">
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-exclamation-octagon"></i>stdio</div>
+              <p class="small">MCP subprocesses требуют долгоживущего IO и плохо дружат с классическим
+                request-per-worker подходом.</p>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-broadcast-pin"></i>Sticky sessions</div>
+              <p class="small">Stateful session model делает балансировку и failover сложнее, чем в обычном stateless
+                API.</p>
+            </div>
+            <div class="panel">
+              <div class="panel-title"><i class="bi bi-clock-history"></i>Долгие вызовы</div>
+              <p class="small">Tool calls и notifications легко выбиваются из модели короткого HTTP request/response.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Message-driven architecture</h2>
+          <div class="flow3" style="margin-top:40px;">
+            <div class="flow-node python"><strong>FastAPI Gateway</strong><span>HTTP / SSE<br>Auth ·
+                Transforms<br>Stateless control plane</span></div>
+            <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="flow-node redis"><strong>Redis Streams</strong><span>mcpreq / mcpres<br>PubSub
+                notifications<br>request-response bus</span></div>
+            <div class="flow-arrow"><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="flow-node rust"><strong>Rust Worker</strong><span>stdio IO<br>1 worker = 1
+                tenant/session<br>zero HTTP overhead</span></div>
+          </div>
+          <div class="callout cyan" style="margin-top:40px; text-align:center;">Gateway остаётся LLM-facing boundary, а
+            тяжёлый IO уезжает в отдельный data plane.</div>
+        </section>
+
+        <section>
+          <h2>Control plane / Message bus / Data plane</h2>
+          <table class="table-lite">
+            <thead>
+              <tr>
+                <th>Слой</th>
+                <th>Технология</th>
+                <th>Ответственность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Control plane</strong></td>
+                <td><span class="accent-blue">FastAPI</span></td>
+                <td>Auth, routing, tool transforms, grouping, task orchestration, LLM-facing API.</td>
+              </tr>
+              <tr>
+                <td><strong>Message bus</strong></td>
+                <td><span class="accent-red">Redis Streams / PubSub</span></td>
+                <td>Request-response между gateway и worker, fan-in notifications, decoupling.</td>
+              </tr>
+              <tr>
+                <td><strong>Data plane</strong></td>
+                <td><span class="accent-orange">Rust</span></td>
+                <td>stdio subprocesses, lifecycle, crash recovery, scale-to-zero readiness.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="equation">runtime → orchestration → distributed platform</div>
+        </section>
+
+        <section>
+          <h2>Финальная рамка</h2>
+          <div class="three-col">
+            <div class="panel">
+              <h3>Почему</h3>
+              <p class="small">Tools и MCP сделали внешний мир частью reasoning loop.</p>
+            </div>
+            <div class="panel">
+              <h3>На чём</h3>
+              <p class="small">Framework-слой вроде FastMCP ускоряет сборку MCP gateway и формирование surface.</p>
+            </div>
+            <div class="panel">
+              <h3>Как довести</h3>
+              <p class="small">Собственный runtime, SessionManager, tasks, policy, а затем — production architecture.
+              </p>
+            </div>
+          </div>
+          <div class="callout cyan" style="margin-top:20px;">Главная мысль доклада: MCP gateway — это не прокладка перед
+            tools, а архитектурный слой, который взрослеет вместе с системой.</div>
+        </section>
+
       </div>
-
-      <div class="mini-equation">
-        clients → cloud gateway → registry → MCP servers
-      </div>
     </div>
 
-    <div class="diagram-box tools">
-      <div class="diagram-title"><i class="bi bi-diagram-3"></i> Reference shape</div>
-      <pre class="mermaid">
-flowchart LR
-    C1[Claude / Cursor]
-    C2[Internal App / Workflow]
-    GW[FastMCP Cloud Gateway]
-    REG[Registry]
-    M1[Jira MCP]
-    M2[GitHub MCP]
-    M3[Slack MCP]
-    M4[Internal MCP]
-
-    C1 --> GW
-    C2 --> GW
-    GW --> REG
-    GW --> M1
-    GW --> M2
-    GW --> M3
-    GW --> M4
-    REG -. catalog / discovery .-> GW
-      </pre>
-    </div>
   </div>
+  <!--  VMCP-GATEWAY -->
 
-  <div class="center-note">
-    Этот слайд заменяет длинный хвост про production-детали и сразу показывает итоговую систему целиком.
-  </div>
-</section>
 
-<!-- Slide 44 -->
-<section>
-  <h2>Поверх gateway — <span class="accent-blue">FastAPI BFF</span></h2>
-
-  <div class="two-col">
-    <div class="panel align" style="min-height:auto;">
-      <div class="panel-title"><i class="bi bi-code-square"></i> Зачем ещё один слой</div>
-      <div class="chip">Из tools в product API</div>
-
-      <div class="step">
-        <div class="step-title">Клиенту не нужен tool catalog</div>
-        <div class="step-desc">
-          Продукт и UI работают с бизнес-операциями, а не с сырыми MCP tools.
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">BFF даёт нормальный контракт</div>
-        <div class="step-desc">
-          REST/HTTP endpoint, валидация, auth, rate limits, audit и versioning.
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">Gateway остаётся внутри</div>
-        <div class="step-desc">
-          FastAPI оркестрирует сценарий, а cloud gateway уже вызывает нужные MCP capabilities.
-        </div>
-      </div>
-    </div>
-
-    <div class="panel" style="min-height:auto;">
-<pre><code class="language-python">from fastapi import FastAPI, Depends
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class CreateIssueRequest(BaseModel):
-    project: str
-    title: str
-    description: str | None = None
-
-class GatewayClient:
-    async def call_tool(self, tool: str, **kwargs):
-        ...
-
-async def get_gateway() -> GatewayClient:
-    return GatewayClient()
-
-@app.post("/api/issues")
-async def create_issue(
-    body: CreateIssueRequest,
-    gw: GatewayClient = Depends(get_gateway),
-):
-    return await gw.call_tool(
-        "jira.create_issue",
-        project=body.project,
-        summary=body.title,
-        description=body.description,
-    )</code></pre>
-    </div>
-  </div>
-
-  <div class="bottom-line">
-    Снаружи у нас продуктовый API. Внутри — FastAPI, cloud gateway, registry и MCP-серверы.
-  </div>
-</section>
-
-<!-- Slide 45 -->
-<section>
-  <h2>Ключевой <span class="accent-yellow">финал</span></h2>
-
-  <div class="equation-box">
-    <div class="equation-side">
-      <h4>Что было бы плохо</h4>
-      <ul>
-        <li>Тащить клиента напрямую в десятки tools.</li>
-        <li>Раздавать много MCP endpoint’ов.</li>
-        <li>Смешивать product API и integration layer.</li>
-        <li>Держать архитектуру на ручной сборке коннекторов.</li>
-      </ul>
-    </div>
-
-    <div class="eq-sign">→</div>
-
-    <div class="equation-result">
-      <h4>Что выглядит зрелым</h4>
-      <ul>
-        <li>FastAPI как внешний BFF/API слой.</li>
-        <li>FastMCP Cloud Gateway как единая MCP точка входа.</li>
-        <li>Registry как каталог и discovery-слой.</li>
-        <li>MCP servers как execution layer реальных интеграций.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="callout">
-    То есть конец доклада не про “ещё один framework”, а про зрелую форму системы:
-    product API сверху, gateway посередине, MCP-интеграции снизу.
-  </div>
-</section>
-    </div>
-  </div>
-<!--  VMCP-GATEWAY -->
-  
-  
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11.6.0/plugin/mermaid/mermaid.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11.6.0/plugin/mermaid/mermaid.js"></script>
 
-<script>
+  <script>
     Reveal.initialize({
       hash: true,
       slideNumber: 'c/t',
@@ -2554,11 +1452,11 @@ async def create_issue(
       width: 1440,
       height: 810,
       margin: 0.04,
-    mermaid: {
-      theme: 'dark'
-    },
+      mermaid: {
+        theme: 'dark'
+      },
 
-    plugins: [ RevealHighlight, RevealNotes, RevealMermaid ]
+      plugins: [RevealHighlight, RevealNotes, RevealMermaid]
 
     });
 
@@ -2567,4 +1465,5 @@ async def create_issue(
     }
   </script>
 </body>
+
 </html>
